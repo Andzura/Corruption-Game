@@ -4,12 +4,20 @@
  * and open the template in the editor.
  */
 
-package corruptiongame.Character;
+package corruptiongame.character;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  *
  * @author p1303674
  */
 public class Character {
-    
+	private String name;
+	private int level;
+	private Map<Stats, Integer> stats;
+	private int maxWeight;
+	private int maxHealth;
+
 }
