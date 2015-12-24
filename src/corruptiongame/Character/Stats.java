@@ -5,7 +5,7 @@ package corruptiongame.character;
  *
  * @author p1303674
  */
-public enum Stats {
+public enum STATS {
     STRENGTH,
     DEFENSE,
     EVIL,
