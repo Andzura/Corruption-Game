@@ -6,9 +6,9 @@
 
 package corruptiongame.main;
 
-import corruptiongame.Item.Armor;
-import corruptiongame.Item.Item;
-import corruptiongame.Item.Weapon;
+import corruptiongame.item.Armor;
+import corruptiongame.item.Item;
+import corruptiongame.item.Weapon;
 
 /**
  *

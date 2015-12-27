@@ -9,7 +9,7 @@ public class Defense implements Skill {
 	/**
 	 * @param src the character source of the defense skill
 	 * @param target the target of the defense skill
-	 * @return the value of the buff.
+	 * @return the value of the buff
 	 */
 	@Override
 	public int perform(Character src, Character target) {

@@ -1,4 +1,4 @@
-package corruptiongame.Item;
+package corruptiongame.item;
 
 public class Item {
 	private String name;

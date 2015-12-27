@@ -5,9 +5,9 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import corruptiongame.Item.Armor;
-import corruptiongame.Item.Item;
-import corruptiongame.Item.Weapon;
+import corruptiongame.item.Armor;
+import corruptiongame.item.Item;
+import corruptiongame.item.Weapon;
 
 
 public class Character {

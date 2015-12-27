@@ -1,4 +1,4 @@
-package corruptiongame.Item;
+package corruptiongame.item;
 
 public class Weapon extends Item {
 	private int attack;
