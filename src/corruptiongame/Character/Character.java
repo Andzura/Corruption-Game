@@ -21,6 +21,7 @@ public class Character {
 	private List<Item> inventory;
 	private Armor armor;
 	private Weapon weapon;
+	private int mapX,mapY,combatX,combatY;
 	
 	
 	public Character(String name, int startLevel, int maxHealth, int strength, int defense, int evil){

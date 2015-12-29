@@ -1,4 +1,4 @@
-package corruptiongame.stateManager;
+package corruptiongame.statemanager;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
