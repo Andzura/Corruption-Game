@@ -3,7 +3,7 @@ package corruptiongame.character;
 public class Attack implements Skill {
 	
 	private String name;
-	private STATS attackType;
+	private Stats attackType;
 	private int statsMultiplier;
 
 	/**
@@ -13,11 +13,11 @@ public class Attack implements Skill {
 	 * 
 	 */
 	@Override
-	public int perform(Character src, Character target) {
+	public int perform(RPGCharacter src, RPGCharacter target) {
 		// TODO Auto-generated method stub
 		int attack = src.getWeapon().getAttack();
 		int stat = src.getStats(attackType);
-		int defense = target.getStats(STATS.DEFENSE);
+		int defense = target.getStats(Stats.DEFENSE);
 		int damage = 0;
 		/*
 		 * To do: calculate damage ( with the attack of the src, the defense of the target, and the attackType), and apply this damage to target.
@@ -35,7 +35,7 @@ public class Attack implements Skill {
 	/**
 	 * @return the attackType
 	 */
-	public STATS getAttackType() {
+	public Stats getAttackType() {
 		return attackType;
 	}
 

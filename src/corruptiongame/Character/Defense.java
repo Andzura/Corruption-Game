@@ -2,7 +2,7 @@ package corruptiongame.character;
 
 public class Defense implements Skill {
 	private String name;
-	private STATS buffType;
+	private Stats buffType;
 	private int buffValue;
 	private boolean selfOnly;
 	
@@ -12,7 +12,7 @@ public class Defense implements Skill {
 	 * @return the value of the buff
 	 */
 	@Override
-	public int perform(Character src, Character target) {
+	public int perform(RPGCharacter src, RPGCharacter target) {
 		int buff = 0;
 		/*
 		 * calculate the value of the buff, and apply it to the  target.
@@ -32,7 +32,7 @@ public class Defense implements Skill {
 		this.buffValue = buffValue;
 	}
 
-	public STATS getBuffType() {
+	public Stats getBuffType() {
 		return buffType;
 	}
 	

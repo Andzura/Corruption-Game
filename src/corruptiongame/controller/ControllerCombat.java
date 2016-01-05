@@ -5,25 +5,25 @@ import java.util.List;
 
 import corruptiongame.character.Attack;
 import corruptiongame.character.Defense;
-import corruptiongame.character.Character;
+import corruptiongame.character.RPGCharacter;
 import corruptiongame.character.Skill;
 import me.grea.antoine.utils.Dice;
 
 public class ControllerCombat {
-	private Character player;
-	private List<Character> enemy;
+	private RPGCharacter player;
+	private List<RPGCharacter> enemy;
 	
-	public ControllerCombat( Character player,List<Character> enemy,boolean playerTurn){
+	public ControllerCombat( RPGCharacter player,List<RPGCharacter> enemy){
 		this.player = player;
 		this.enemy = enemy;
 	}
 	
-	public int chooseSkill(Character src, Character target, int idSkill){
+	public int chooseSkill(RPGCharacter src, RPGCharacter target, int idSkill){
 		Skill choosed = src.getSkills().get(idSkill);
 		return choosed.perform(src, target);		
 	}
 	
-	public int randomSkill(Character src){
+	public int randomSkill(RPGCharacter src){
 		int skillCount = src.getSkills().size();
 		int rnd = Dice.roll(skillCount - 1);
 		Skill skill = src.getSkills().get(rnd);

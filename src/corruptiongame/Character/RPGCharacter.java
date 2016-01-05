@@ -10,10 +10,10 @@ import corruptiongame.item.Item;
 import corruptiongame.item.Weapon;
 
 
-public class Character {
+public class RPGCharacter {
 	private String name;
 	private int level;
-	private Map<STATS, Integer> stats;
+	private Map<Stats, Integer> stats;
 	private List<Skill> skills;
 	private int maxWeight;
 	private int maxHealth;
@@ -24,23 +24,22 @@ public class Character {
 	private int mapX,mapY,combatX,combatY;
 	
 	
-	public Character(String name, int startLevel, int maxHealth, int strength, int defense, int evil){
+	public RPGCharacter(String name, int startLevel, int maxHealth, int strength, int defense, int evil){
 		this.name = name;
 		this.level = startLevel;
 		this.maxHealth = maxHealth;
 		this.maxWeight = strength * 10;
-		this.stats = new EnumMap<STATS,Integer>(STATS.class);
-		this.stats.put(STATS.HEALTH, maxHealth);
-		this.stats.put(STATS.STRENGTH, strength);
-		this.stats.put(STATS.DEFENSE, defense);
-		this.stats.put(STATS.EVIL, evil);
-		this.stats.put(STATS.WEIGHT, 0);
+		this.stats = new EnumMap<Stats,Integer>(Stats.class);
+		this.stats.put(Stats.HEALTH, maxHealth);
+		this.stats.put(Stats.STRENGTH, strength);
+		this.stats.put(Stats.DEFENSE, defense);
+		this.stats.put(Stats.EVIL, evil);
+		this.stats.put(Stats.WEIGHT, 0);
 		this.armor = new Armor("none", 0, 0);
 		this.weapon = new Weapon("fist", 0, 1);
 		this.inventory = new ArrayList<>();
 		this.skills = new ArrayList<>();
 		this.xp = 0;
-		
 	}
 	
 	/**
@@ -54,7 +53,7 @@ public class Character {
 	 * @return the value of Stats s
 	 * if Stats s isn't a key of the Map, return 0
 	 */
-	public int getStats(STATS s){
+	public int getStats(Stats s){
 		if(stats.containsKey(s))
 			return stats.get(s);
 		else 
@@ -114,15 +113,15 @@ public class Character {
 	 * @param armor the armor to equip
 	 */
 	public void equipArmor(Armor armor) {
-		int defense = this.stats.get(STATS.DEFENSE);
+		int defense = this.stats.get(Stats.DEFENSE);
 		if(inventory.contains((Item) armor)){
 			if(this.armor != null){
 				defense -= this.armor.getDefense();
-				this.stats.put(STATS.DEFENSE, defense);
+				this.stats.put(Stats.DEFENSE, defense);
 			}
 			this.armor = armor;
 			defense += this.armor.getDefense();
-			this.stats.put(STATS.DEFENSE, defense);
+			this.stats.put(Stats.DEFENSE, defense);
 		}
 	}
 
@@ -146,12 +145,12 @@ public class Character {
 	 * @return true if the character died while loosing health (ie health = 0), else return false
 	 */
 	public boolean looseHealth(int hp){
-		int hpOld = stats.get(STATS.HEALTH);
+		int hpOld = stats.get(Stats.HEALTH);
 		if(hpOld - hp <= 0){
-			stats.put(STATS.HEALTH, 0);
+			stats.put(Stats.HEALTH, 0);
 			return true;
 		}
-		stats.put(STATS.HEALTH, hpOld - hp);
+		stats.put(Stats.HEALTH, hpOld - hp);
 		return false;
 	}
 	
@@ -160,29 +159,29 @@ public class Character {
 	 *
 	 */
 	public void gainHealth(int hp){
-		int hpOld = stats.get(STATS.HEALTH);
+		int hpOld = stats.get(Stats.HEALTH);
 		if(hpOld + hp >= maxHealth)
-			stats.put(STATS.HEALTH, maxHealth);
+			stats.put(Stats.HEALTH, maxHealth);
 		else
-			stats.put(STATS.HEALTH, hpOld + hp);
+			stats.put(Stats.HEALTH, hpOld + hp);
 	}
 	
 	public boolean addItem(Item item){
-		int weight = this.stats.get(STATS.WEIGHT);
+		int weight = this.stats.get(Stats.WEIGHT);
 		weight += item.getWeight();
 		if(weight <= this.maxWeight){
 			inventory.add(item);
-			this.stats.put(STATS.WEIGHT, weight);
+			this.stats.put(Stats.WEIGHT, weight);
 			return true;
 		}
 		return false;
 	}
 	
 	public void dropItem(Item item){
-		int weight = this.stats.get(STATS.WEIGHT);
+		int weight = this.stats.get(Stats.WEIGHT);
 		weight -= item.getWeight();
 		if(inventory.remove(item))
-			this.stats.put(STATS.WEIGHT, weight);
+			this.stats.put(Stats.WEIGHT, weight);
 	}
 
 }
