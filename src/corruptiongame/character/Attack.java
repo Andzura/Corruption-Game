@@ -13,15 +13,13 @@ public class Attack implements Skill {
 	 * 
 	 */
 	@Override
-	public int perform(RPGCharacter src, RPGCharacter target) {
+	public void perform(RPGCharacter src, RPGCharacter target) {
 		int attack = src.getWeapon().getAttack();
 		int stat = src.getStats(attackType);
 		int defense = target.getStats(Stats.DEFENSE);
-		int damage = 0;
-		/*
-		 * To do: calculate damage ( with the attack of the src, the defense of the target, and the attackType), and apply this damage to target.
-		 */
-		return damage;
+		int damage = attack + stat*this.statsMultiplier - defense*(1+target.getLevel()/2);
+                
+                target.looseHealth(damage);
 	}
 
 	/**
