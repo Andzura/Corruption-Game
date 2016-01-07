@@ -60,6 +60,11 @@ public class RPGCharacter {
 			return 0;
 	}
 	
+	public Map<Stats, Integer> getAllStats(){
+		Map<Stats,Integer> stats = new EnumMap<Stats,Integer>(Stats.class);
+		stats.putAll(this.stats);
+		return stats;
+	}
 	/**
 	 * @return the level
 	 */
@@ -182,6 +187,38 @@ public class RPGCharacter {
 		weight -= item.getWeight();
 		if(inventory.remove(item))
 			this.stats.put(Stats.WEIGHT, weight);
+	}
+
+	public int getCombatY() {
+		return combatY;
+	}
+
+	public void setCombatY(int combatY) {
+		this.combatY = combatY;
+	}
+
+	public int getMapX() {
+		return mapX;
+	}
+
+	public void setMapX(int mapX) {
+		this.mapX = mapX;
+	}
+
+	public int getCombatX() {
+		return combatX;
+	}
+
+	public void setCombatX(int combatX) {
+		this.combatX = combatX;
+	}
+
+	public int getMapY() {
+		return mapY;
+	}
+
+	public void setMapY(int mapY) {
+		this.mapY = mapY;
 	}
 
 }

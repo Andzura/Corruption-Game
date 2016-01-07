@@ -8,8 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import me.grea.antoine.utils.Log;
+import corruptiongame.character.RPGCharacter;
 import corruptiongame.graphics.TextGrid;
 import corruptiongame.statemanager.StateManager;
+import corruptiongame.statemanager.states.CombatState;
 import corruptiongame.statemanager.states.MainMenuState;
 import corruptiongame.statemanager.states.MapState;
 
@@ -55,7 +57,14 @@ public class Game extends JPanel implements Runnable{
 		manager.addState(new MainMenuState(this.manager,keyboard), "MAINMENU");
 		manager.addState(new MapState(manager,keyboard), "MAP");
 		manager.push("MAINMENU");
-		
+		RPGCharacter player = new RPGCharacter("Char", 1, 20, 5, 5, 0);
+		CombatState combat = new CombatState(manager, player, keyboard);
+		manager.addState(combat, "COMBAT");
+		RPGCharacter enemy1 = new RPGCharacter("Flowey", 1, 20, 5, 5, 0);
+		enemy1.setCombatX(20);
+		enemy1.setCombatY(10);
+		combat.addEnemy(enemy1);
+		manager.push("COMBAT");
 		//initialize Screen
 		screen = new TextGrid(NBTILEW, NBTILEH, TILESIZE, TILESIZE);
 		screen.setSize(W,H);

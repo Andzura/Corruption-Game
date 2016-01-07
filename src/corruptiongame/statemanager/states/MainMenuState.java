@@ -1,6 +1,6 @@
 package corruptiongame.statemanager.states;
 
-import me.grea.antoine.utils.Dice;
+
 import corruptiongame.main.Game;
 import corruptiongame.main.Keyboard;
 import corruptiongame.statemanager.State;
@@ -16,7 +16,7 @@ public class MainMenuState extends State{
 	}
 	
 	public void init() {
-		this.clearScreen(0x00ff00);
+		this.clearScreen(0x000000);
 	}
 
 	private void select(){
