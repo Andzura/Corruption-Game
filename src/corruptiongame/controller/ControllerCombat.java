@@ -7,33 +7,37 @@ import corruptiongame.character.Attack;
 import corruptiongame.character.Defense;
 import corruptiongame.character.RPGCharacter;
 import corruptiongame.character.Skill;
+import corruptiongame.character.Stats;
+import java.util.Map;
 import me.grea.antoine.utils.Dice;
 
 public class ControllerCombat {
 	private RPGCharacter player;
 	private List<RPGCharacter> enemy;
+        private Map<Stats, Integer> statsPlayerDefault;
 	
 	public ControllerCombat( RPGCharacter player,List<RPGCharacter> enemy){
 		this.player = player;
 		this.enemy = enemy;
+                this.statsPlayerDefault = player.getAllStats();
 	}
 	
-	public int chooseSkill(RPGCharacter src, RPGCharacter target, int idSkill){
+	public void chooseSkill(RPGCharacter src, RPGCharacter target, int idSkill){
 		Skill choosed = src.getSkills().get(idSkill);
-		return choosed.perform(src, target);		
+                choosed.perform(src, target);		
 	}
 	
-	public int randomSkill(RPGCharacter src){
+	public void randomSkill(RPGCharacter src){
 		int skillCount = src.getSkills().size();
 		int rnd = Dice.roll(skillCount - 1);
 		Skill skill = src.getSkills().get(rnd);
 		if(skill.getClass() == Attack.class){
-			return skill.perform(src, player);
+			skill.perform(src, player);
 		}else{
 			if(((Defense) skill).isSelfOnly())
-				return skill.perform(src, src);
+				skill.perform(src, src);
 			rnd = Dice.roll(enemy.size() - 1);
-			return skill.perform(src, enemy.get(rnd));
+			skill.perform(src, enemy.get(rnd));
 		}
 	}
 }

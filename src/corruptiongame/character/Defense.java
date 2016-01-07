@@ -12,12 +12,11 @@ public class Defense implements Skill {
 	 * @return the value of the buff
 	 */
 	@Override
-	public int perform(RPGCharacter src, RPGCharacter target) {
-		int buff = 0;
+	public void perform(RPGCharacter src, RPGCharacter target) {
+		int buff = buffValue*(1+src.getLevel()/5);
 		/*
 		 * calculate the value of the buff, and apply it to the  target.
 		 */
-		return buff;
 	}
 
 	public String getName() {
