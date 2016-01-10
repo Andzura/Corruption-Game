@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+import corruptiongame.main.Game;
 import me.grea.antoine.utils.Log;
 
 public class WorldMap {
@@ -57,4 +58,11 @@ public class WorldMap {
 		sc.close();
 	}
 	
+	public int getTile(int x, int y){
+		return map[sizeX * y+x];
+	}
+	
+	public int getTile(int index){
+		return map[index];
+	}
 }

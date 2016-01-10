@@ -6,6 +6,14 @@ public class Attack implements Skill {
 	private Stats attackType;
 	private int statsMultiplier;
 
+	
+	
+	
+	 public Attack(String name, Stats attackType, int statsMultiplier){
+		 this.name = name;
+		 this.attackType = attackType;
+		 this.statsMultiplier = statsMultiplier;
+	 }
 	/**
 	 * @param src the character source of the attack skill
 	 * @param target the target of the attack skill

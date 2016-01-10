@@ -8,8 +8,11 @@ import corruptiongame.character.Defense;
 import corruptiongame.character.RPGCharacter;
 import corruptiongame.character.Skill;
 import corruptiongame.character.Stats;
+
 import java.util.Map;
+
 import me.grea.antoine.utils.Dice;
+import me.grea.antoine.utils.Log;
 
 public class ControllerCombat {
 	private RPGCharacter player;
@@ -24,7 +27,9 @@ public class ControllerCombat {
 	
 	public void chooseSkill(RPGCharacter src, RPGCharacter target, int idSkill){
 		Skill choosed = src.getSkills().get(idSkill);
-                choosed.perform(src, target);		
+        choosed.perform(src, target);
+        Log.d("enemy HP = " + target.getStats(Stats.HEALTH));
+        Log.d("Player HP = " + src.getStats(Stats.HEALTH));
 	}
 	
 	public void randomSkill(RPGCharacter src){

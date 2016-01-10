@@ -12,9 +12,14 @@ public class Keyboard extends KeyAdapter{
 	//invoked when a Key is pressed
 	//change the keys Array accordingly then invoke the update() method 
 	//to update the value of the tracked actions.
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e){
+		if(e.getKeyCode() >= 190){
+			Log.w("Key code "+ e.getKeyCode() +" is out of bounds, this key won't do anything.");
+		}
+		else{
 		keys[e.getKeyCode()] = true;
 		this.update();
+		}
 	}
 	//update the value of the tracked actions ( i.e. up down left right enter)
 	//accordingly with their keyboard binding.
@@ -28,8 +33,13 @@ public class Keyboard extends KeyAdapter{
 	}
 	
 	public void keyReleased(KeyEvent e) {
+		if(e.getKeyCode() >= 190){
+			Log.w("Key code "+ e.getKeyCode() +" is out of bounds, this key won't do anything.");
+		}
+		else{
 		keys[e.getKeyCode()] = false;
 		this.update();
+		}
 	}
 
 	public boolean isEnterPressed() {

@@ -6,6 +6,13 @@ public class Defense implements Skill {
 	private int buffValue;
 	private boolean selfOnly;
 	
+	public Defense(String name, Stats buffType, int buffValue, boolean selfOnly) {
+		this.name = name;
+		this.buffType = buffType;
+		this.buffValue = buffValue;
+		this.selfOnly = selfOnly;
+	}
+
 	/**
 	 * @param src the character source of the defense skill
 	 * @param target the target of the defense skill

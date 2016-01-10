@@ -32,7 +32,7 @@ public class TextGrid extends JPanel {
 			this.backgroundChar = new int[nbCharH*nbCharW];
 			this.foregroundChar = new int[nbCharH*nbCharW];
 			font = null;
-			InputStream is = TextGrid.class.getResourceAsStream("/font/DOSVGA437.ttf");
+			InputStream is = TextGrid.class.getResourceAsStream("/font/cp437-8x8.ttf");
 			if(is != null){
 				try {
 					font = Font.createFont(Font.TRUETYPE_FONT, is);
@@ -46,7 +46,7 @@ public class TextGrid extends JPanel {
 			} catch (IOException e) {
 				Log.f(e.getMessage());
 			}
-			font = font.deriveFont(Font.BOLD, 19);
+			font = font.deriveFont(Font.BOLD, widthTile-2);
 		}
 
 		public char getDisplayedChar(int index){
@@ -112,7 +112,7 @@ public class TextGrid extends JPanel {
 				  g2.setColor(new Color(getBackgroundChar(i*nbCharW + j)));
 				  g2.fillRect(j*widthTile, i*heightTile, widthTile , heightTile);
 				  g2.setColor(new Color(getForegroundChar(i*nbCharW + j)));
-			      g2.drawString(String.valueOf(displayedChar[i*nbCharW + j]), j*widthTile, (i+1)*heightTile - (fm.getDescent())/2);
+			      g2.drawString(String.valueOf(displayedChar[i*nbCharW + j]), j*widthTile, (i+1)*heightTile - (fm.getDescent()));
 			  }
 			}
 			 

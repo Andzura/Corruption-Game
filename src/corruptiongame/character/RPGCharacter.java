@@ -29,7 +29,7 @@ public class RPGCharacter {
 		this.level = startLevel;
 		this.maxHealth = maxHealth;
 		this.maxWeight = strength * 10;
-		this.stats = new EnumMap<Stats,Integer>(Stats.class);
+		this.stats = new EnumMap<Stats,Integer>(Stats.class); 
 		this.stats.put(Stats.HEALTH, maxHealth);
 		this.stats.put(Stats.STRENGTH, strength);
 		this.stats.put(Stats.DEFENSE, defense);
@@ -39,6 +39,8 @@ public class RPGCharacter {
 		this.weapon = new Weapon("fist", 0, 1);
 		this.inventory = new ArrayList<>();
 		this.skills = new ArrayList<>();
+		this.skills.add(new Attack("Normal Attack", Stats.STRENGTH, 1));
+		this.skills.add(new Defense("Heal", Stats.HEALTH, 5, true));
 		this.xp = 0;
 	}
 	

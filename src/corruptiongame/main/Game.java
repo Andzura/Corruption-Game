@@ -19,8 +19,8 @@ public class Game extends JPanel implements Runnable{
 	
 	//public constant
 	public static int W = 800;
-	public static int H = 600;
-	public static int TILESIZE = 15;
+	public static int H = 630;
+	public static int TILESIZE = 20;
 	public static int NBTILEW = W/TILESIZE;
 	public static int NBTILEH = H/TILESIZE;
 	
@@ -50,9 +50,7 @@ public class Game extends JPanel implements Runnable{
 		this.addKeyListener(keyboard);
 		
 		//initialize StateManager
-		//and create the main menu states
-		//(Others state will be created on new game/load game 
-		//to use the correct Character player)
+		//and create the states
 		manager = new StateManager();
 		manager.addState(new MainMenuState(this.manager,keyboard), "MAINMENU");
 		manager.addState(new MapState(manager,keyboard), "MAP");
@@ -64,7 +62,7 @@ public class Game extends JPanel implements Runnable{
 		enemy1.setCombatX(20);
 		enemy1.setCombatY(10);
 		combat.addEnemy(enemy1);
-		manager.push("COMBAT");
+		manager.push("MAINMENU");
 		//initialize Screen
 		screen = new TextGrid(NBTILEW, NBTILEH, TILESIZE, TILESIZE);
 		screen.setSize(W,H);

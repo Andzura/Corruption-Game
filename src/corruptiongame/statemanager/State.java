@@ -56,7 +56,7 @@ public abstract class State {
 	}
 	
 	protected void writeStringOnScreen(String string, int x, int y, int colorBg, int colorFg){
-		for(int i = 0; i < string.length() && i < screen.length;i++){
+		for(int i = 0; i < string.length() && (i+x+y*Game.NBTILEW) < screen.length;i++){
 			screen[y*(Game.NBTILEW)+x+i] = string.charAt(i);
 			screenBackground[y*(Game.NBTILEW)+x+i] = colorBg;
 			screenForeground[y*(Game.NBTILEW)+x+i] = colorFg;
