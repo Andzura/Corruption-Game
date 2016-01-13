@@ -18,8 +18,9 @@ public class Tile{
 	public static Tile FENCECORNERDL = new Tile((char) 0x00C8,0xffffff,0x000000);
 	public static Tile FENCECORNERUR = new Tile((char) 0x00BB,0xffffff,0x000000);
 	public static Tile FENCECORNERDR = new Tile((char) 0x00BC,0xffffff,0x000000);
+	public static Tile WATER = new Tile((char)0x00F7, 0x000000, 0x000090);
 	
-	public static Tile[] tileset ={BLACKFLOOR,		// tile  0
+	public static Tile[] TILESET ={BLACKFLOOR,		// tile  0
 									GRAYFLOOR, 		//		 1
 									SNOWYFLOOR,		//		 2
 									YELLOWFLOWER,	//		 3
@@ -31,7 +32,9 @@ public class Tile{
 									FENCECORNERUL,	//		 9
 									FENCECORNERDL,	//		10
 									FENCECORNERUR,	//		11
-									FENCECORNERDR};	//		12
+									FENCECORNERDR,  //		12
+									WATER};			//		13
+	public static int STARTCOLLISIONTILE = 5;
 	
 	public Tile(char displayedChar, int background ,int foreground){
 		this.displayedChar = displayedChar;
