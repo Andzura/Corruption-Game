@@ -56,17 +56,30 @@ public abstract class State {
 	}
 	
 	protected void writeStringOnScreen(String string, int x, int y, int colorBg, int colorFg){
-		for(int i = 0; i < string.length() && (i+x+y*Game.NBTILEW) < screen.length;i++){
-			screen[y*(Game.NBTILEW)+x+i] = string.charAt(i);
-			screenBackground[y*(Game.NBTILEW)+x+i] = colorBg;
-			screenForeground[y*(Game.NBTILEW)+x+i] = colorFg;
+		String[] lines = string.split("\\r?\\n");
+		int yWrite;
+		for(int i = 0; i < lines.length; i++){
+			for(int xWrite = x; (xWrite-x) < lines[i].length() && xWrite < Game.NBTILEW; xWrite++){
+				yWrite = y + i;
+				if(yWrite < Game.NBTILEH){
+					screen[yWrite*(Game.NBTILEW)+xWrite] = lines[i].charAt(xWrite-x);
+					screenBackground[yWrite*(Game.NBTILEW)+xWrite] = colorBg;
+					screenForeground[yWrite*(Game.NBTILEW)+xWrite] = colorFg;
+				}
+				
+		}
+		}
+	}
+	protected void clearScreenRegion(int color, int xUL, int yUL, int xDR, int yDR){
+		for(int x = xUL; x < xDR; x++){
+			for(int y = yUL; + y < yDR; y++){
+				screen[x+y*Game.NBTILEW] = ' ';
+				screenBackground[x+y*Game.NBTILEW] = color;
+				screenForeground[x+y*Game.NBTILEW] = color;
+			}
 		}
 	}
 	protected void clearScreen(int color){
-		for(int i = 0; i < screen.length; i++){
-			screen[i] = ' ';
-			screenBackground[i] = color;
-			screenForeground[i] = color;
-		}
+		clearScreenRegion(color,0,0,Game.NBTILEW-1, Game.NBTILEH-1);
 	}
 }

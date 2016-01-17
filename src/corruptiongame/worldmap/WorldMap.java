@@ -4,7 +4,12 @@ package corruptiongame.worldmap;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+
+
 
 import corruptiongame.main.Game;
 import me.grea.antoine.utils.Log;
@@ -13,8 +18,10 @@ public class WorldMap {
 	private int sizeX;
 	private int sizeY;
 	private char[] map;
+	private List<Event> events;
 	
 	public WorldMap(String path){
+		events = new ArrayList<>();
 		Scanner sc	= null;
 		InputStream is = getClass().getResourceAsStream(path);
 		if(is != null)
@@ -35,7 +42,6 @@ public class WorldMap {
 			sc.nextLine();
 			while(sc.hasNextLine() && lineY < sizeY){
 				s = sc.nextLine();
-				Log.d(s);
 				Scanner lsc = new Scanner(s);
 				while(lsc.hasNextInt() && lineX < sizeX){
 					map[sizeX*lineY+lineX] = (char)lsc.nextInt();
@@ -64,5 +70,30 @@ public class WorldMap {
 	
 	public int getTile(int index){
 		return map[index];
+	}
+	
+	public int getSizeX(){
+		return sizeX;
+	}
+	
+	public int getSizeY(){
+		return sizeY;
+	}
+	
+	public void addEvent(Event e){
+		events.add(e);
+	}
+
+	public void loadEvent(){
+		
+	}
+	
+	public Event checkEvent(int x, int y){
+		for(int i = 0; i < events.size(); i++){
+			if(events.get(i).checkTrigger(x, y)){
+				return events.get(i);
+			}
+		}
+		return null;
 	}
 }

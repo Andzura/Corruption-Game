@@ -21,5 +21,10 @@ public class Item {
 	public int getWeight() {
 		return weight;
 	}
+	
+	public Item copy(){
+		Item copy = new Item(name, weight);
+		return copy;
+	}
 	 
 }

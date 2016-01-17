@@ -52,7 +52,7 @@ public class StateManager {
 	        stack.push(state);
 	    }
 	 
-	    public State Pop()
+	    public State pop()
 	    {
 	        if(stack.peek() != null){
 	        	stack.peek().exit();

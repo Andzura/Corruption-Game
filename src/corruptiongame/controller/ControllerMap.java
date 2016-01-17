@@ -2,15 +2,18 @@ package corruptiongame.controller;
 
 import corruptiongame.character.RPGCharacter;
 import corruptiongame.graphics.Tile;
+import corruptiongame.worldmap.Event;
 import corruptiongame.worldmap.WorldMap;
 
 public class ControllerMap {
 	private RPGCharacter player;
 	private WorldMap map;
+	private Event lastTriggeredEvent;
 	
 	public ControllerMap(RPGCharacter player, WorldMap map){
 		this.player = player;
 		this.map = map;
+		lastTriggeredEvent = null;
 	}
 	
 	
@@ -34,5 +37,20 @@ public class ControllerMap {
 			player.setMapX(x);
 			player.setMapY(y);
 		}
+	}
+
+
+	public boolean checkEvent() {
+		Event e = map.checkEvent(player.getMapX(), player.getMapY());
+		if(e != null){
+			lastTriggeredEvent = e;
+			return true;
+		}
+		return false;
+	}
+
+
+	public Event getLastTriggeredEvent() {
+		return lastTriggeredEvent;
 	}
 }

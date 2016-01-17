@@ -16,4 +16,8 @@ public class Armor extends Item {
 		return defense;
 	}
 	
+	public Armor copy(){
+		Armor copy = new Armor(this.getName(), this.getWeight(), defense);
+		return copy;
+	}
 }

@@ -15,4 +15,8 @@ public class Weapon extends Item {
 		return attack;
 	}
 	
+	public Weapon copy(){
+		Weapon copy = new Weapon(this.getName(), this.getWeight(), attack);
+		return copy;
+	}
 }

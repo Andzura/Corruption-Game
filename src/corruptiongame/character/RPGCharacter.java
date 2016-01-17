@@ -11,7 +11,7 @@ import corruptiongame.item.Weapon;
 
 
 public class RPGCharacter {
-	private String name;
+	protected String name;
 	private int level;
 	private Map<Stats, Integer> stats;
 	private List<Skill> skills;
@@ -51,6 +51,13 @@ public class RPGCharacter {
 		return name;
 	}
 
+	/**
+	 * @return the name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	/**
 	 * @return the value of Stats s
 	 * if Stats s isn't a key of the Map, return 0
@@ -95,18 +102,37 @@ public class RPGCharacter {
 		return xp;
 	}
 	
+	
+	public void gainXp(int xp) {
+		this.xp += xp;
+		if(xp > (level*50)){
+			xp -= 50*level;
+			level++;
+		}
+	}
+	
+	public void setStats(Stats stat, int value){
+		this.stats.replace(stat, value);
+	}
 	/**
 	 * @return the skills list
 	 */
 	public List<Skill> getSkills(){
-		return  new ArrayList<Skill>(skills); // return a clone of the skills List, that way, we can't modify the original through this get method.
+		return  new ArrayList<Skill>(skills); 
+	}
+	
+	public void addSkill(Skill s){
+		skills.add(s);
 	}
 
+	public void addSkill(List<Skill> list){
+		skills.addAll(list);
+	}
 	/**
 	 * @return the inventory
 	 */
 	public List<Item> getInventory() {
-		return new ArrayList<Item>(inventory);  // return a clone of the Inventory, that way, we can't modify the original through this get method.
+		return new ArrayList<Item>(inventory);
 	}
 
 	/**
@@ -184,6 +210,15 @@ public class RPGCharacter {
 		return false;
 	}
 	
+	public boolean addItem(List<Item> list){
+		boolean ret = false;
+		for(int i = 0; i < list.size(); i++){
+			ret = this.addItem(list.get(i));
+		}
+		return ret;
+	}
+	
+	
 	public void dropItem(Item item){
 		int weight = this.stats.get(Stats.WEIGHT);
 		weight -= item.getWeight();
@@ -223,4 +258,7 @@ public class RPGCharacter {
 		this.mapY = mapY;
 	}
 
+	public void modifyStats(Stats stat, int value){
+		this.stats.replace(stat, this.stats.get(stat) + value);
+	}
 }
