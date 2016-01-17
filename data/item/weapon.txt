@@ -1,0 +1,45 @@
+22
+Fist
+0 0 0 1 0
+Knuckle duster
+0 0 0 2 1
+Dagger
+0 0 0 3 1
+Club
+0 0 0 5 2
+Mace
+0 0 0 7 4
+Quarterstaff
+0 0 0 4 2
+Spear
+0 0 0 6 3
+Short sword
+0 5 0 5 1
+Handaxe
+0 5 0 6 2
+Scimitar
+0 5 0 6 2
+Battleaxe
+0 5 0 7 3
+Warhammer
+0 5 0 8 4
+Longsword
+0 5 0 11 4
+Greataxe
+0 5 0 12 6
+Halberd
+0 5 0 9 6
+Greatclub
+0 5 0 9 4
+Swordbreaker sagger
+0 10 0 3 1
+Nunchaku
+0 10 0 5 1
+Bastard sword
+0 10 0 9 3
+Longaxe
+0 10 0 10 4
+Two-bladed sword
+0 10 0 13 5
+Double axe
+0 10 0 16 7

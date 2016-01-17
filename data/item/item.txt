@@ -1,0 +1,25 @@
+12
+Potion of health
+0 0 10 0 0
+Solution of health
+0 0 20 0 0
+Philter of health
+0 0 30 0 0
+Elixir of health
+0 0 40 0 0
+Potion of strength
+0 0 0 5 0
+Solution of strength
+0 0 0 10 0
+Philter of strength
+0 0 0 15 0
+Elixir of strength
+0 0 0 20 0
+Potion of the defender
+5 0 0 0 0
+Solution of the defender
+10 0 0 0 0
+Philter of the defender
+15 0 0 0 0
+Elixir of the defender
+20 0 0 0 0

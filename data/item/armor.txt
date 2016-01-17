@@ -1,0 +1,37 @@
+18
+Pagne du Nudiste
+0 4000 0 42 0
+Quilted clothes
+1 0 0 0 5
+Padded clothes
+1 0 0 0 7
+Leathered clothes
+2 0 0 0 7
+Wooden coat
+3 0 0 1 12
+Studded leathered jacket
+3 0 0 1 10
+Chain shirt
+4 0 0 2 12
+Leather armor
+4 5 0 3 12
+Armored coat
+4 5 0 2 10
+Lamellar armor
+5 5 0 4 15
+Chainmail
+6 5 0 5 20
+Agile breastplate
+6 5 0 4 12
+Breastplate
+6 5 0 4 15
+Splint mail
+7 10 0 7 22
+Banded mail
+7 10 0 6 17
+Half-plate
+9 10 0 7 27
+Agile demi-plaque
+8 10 0 7 25
+Stoneplate
+9 10 0 6 25
