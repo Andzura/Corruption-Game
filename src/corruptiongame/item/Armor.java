@@ -1,23 +1,22 @@
 package corruptiongame.item;
 
-public class Armor extends Item {
-	private int defense;
+import corruptiongame.character.Stats;
 
-	
-	public Armor(String name,int weight, int defense){
-		super(name,weight);
-		this.defense = defense;
+public class Armor extends Item {
+    
+	public Armor(String name, int defense, int evil, int health, int strength, int weight){
+		super(name, defense, evil, health, strength, weight);
 	}
-	
-	/**
-	 * @return the defense
-	 */
-	public int getDefense() {
-		return defense;
+        public Armor(String name){
+		super(name);
 	}
+        public Armor(){
+		super();
+	}
+        
 	
 	public Armor copy(){
-		Armor copy = new Armor(this.getName(), this.getWeight(), defense);
+		Armor copy = new Armor(this.getName(), this.getStats(Stats.DEFENSE), this.getStats(Stats.EVIL), this.getStats(Stats.HEALTH), this.getStats(Stats.STRENGTH), this.getStats(Stats.WEIGHT));
 		return copy;
 	}
 }

@@ -1,22 +1,21 @@
 package corruptiongame.item;
 
-public class Weapon extends Item {
-	private int attack;
-	
-	public Weapon(String name, int weight, int attack) {
-		super(name, weight);
-		this.attack = attack;
-	}
+import corruptiongame.character.Stats;
 
-	/**
-	 * @return the attack
-	 */
-	public int getAttack() {
-		return attack;
+public class Weapon extends Item {
+	
+	public Weapon(String name, int defense, int evil, int health, int strength, int weight){
+		super(name, defense, evil, health, strength, weight);
+	}
+        public Weapon(String name){
+		super(name);
+	}
+        public Weapon(){
+		super();
 	}
 	
 	public Weapon copy(){
-		Weapon copy = new Weapon(this.getName(), this.getWeight(), attack);
+		Weapon copy = new Weapon(this.getName(), this.getStats(Stats.DEFENSE), this.getStats(Stats.EVIL), this.getStats(Stats.HEALTH), this.getStats(Stats.STRENGTH), this.getStats(Stats.WEIGHT));
 		return copy;
 	}
 }
