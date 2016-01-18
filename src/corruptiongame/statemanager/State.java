@@ -56,7 +56,7 @@ public abstract class State {
 	}
 	
 	protected void writeStringOnScreen(String string, int x, int y, int colorBg, int colorFg){
-		String[] lines = string.split("\\r?\\n");
+		String[] lines = string.split("\r?\n");
 		int yWrite;
 		for(int i = 0; i < lines.length; i++){
 			for(int xWrite = x; (xWrite-x) < lines[i].length() && xWrite < Game.NBTILEW; xWrite++){

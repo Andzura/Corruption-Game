@@ -21,15 +21,31 @@ public class Enemy extends RPGCharacter {
 	}
 
 	public void setStartName(String name){
-		startName = name;
+		this.startName = name;
+	}
+	
+	public String getStartName(){
+		return startName;
 	}
 	
 	public void addAttackname(String name){
 		attackName.add(name);
 	}
 	
+	public void addAttackname(List<String> name){
+		attackName.addAll(name);
+	}
+	
+	public List<String> getAttackName(){
+		return attackName;
+	}
+	
 	public void setEndName(String name){
 		endName = name;
+	}
+	
+	public String getEndName(){
+		return endName;
 	}
 	
 	public void applyStartName(){
@@ -48,6 +64,7 @@ public class Enemy extends RPGCharacter {
 		int n = Dice.roll(attackName.size());
 		if( n != 0)
 			name = attackName.get(n-1);
+		name = attackName.get(0);
 	}
 
 	public Enemy copy() {
@@ -61,6 +78,9 @@ public class Enemy extends RPGCharacter {
 		copy.setMapY(this.getMapY());
 		copy.addSkill(this.getSkills());
 		copy.addItem(this.getInventory());
+		copy.setStartName(this.getStartName());
+		copy.setEndName(this.getEndName());
+		copy.addAttackname(this.getAttackName());
 		return copy;
 		
 	}

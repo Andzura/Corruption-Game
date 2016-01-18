@@ -54,13 +54,15 @@ public class CombatState extends State {
 						if(keyboard.isUpTyped() && choice > 0)
 							choice--;
 						if(keyboard.isEnterTyped()){
-							idSkill = choice;
+							if(this.controller.chooseSkill(choice)){
+								this.controller.chooseTarget(player);
+							}
 							choice = 0;
 							skillChoosed = true;
 						}
 					}
 					else{
-						if(keyboard.isRightTyped() && choice < options.length - 1)
+						if(keyboard.isRightTyped() && choice < enemyCount - 1)
 							choice++;
 						if(keyboard.isLeftTyped() && choice > 0)
 							choice--;
@@ -68,7 +70,7 @@ public class CombatState extends State {
 							state = "DEFAULT";
 							skillChoosed = false;
 							this.clearScreen(0x000000);
-							this.controller.chooseSkill(choice, idSkill);
+							this.controller.chooseTarget(enemy.get(choice));
 							choice = 0;
 						}
 					}
@@ -91,7 +93,7 @@ public class CombatState extends State {
 		Enemy enemy;
 		
 		//clear the combat region
-		clearScreenRegion(0x0000000,0,0,Game.NBTILEW-1,2*(Game.NBTILEH/3));
+		clearScreenRegion(0x0000000,0,0,Game.NBTILEW,2*(Game.NBTILEH/3));
 		
 		//render Enemies on screen
 		for(int i = 0; i < enemyCount; i++){

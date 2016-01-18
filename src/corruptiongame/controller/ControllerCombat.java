@@ -25,7 +25,7 @@ public class ControllerCombat {
     private boolean updateBlock;
     private int skillChoosed;
     private int turn;
-    private int target;
+    private RPGCharacter target;
     
 	
 	public ControllerCombat( RPGCharacter player,List<Enemy> enemy){
@@ -35,6 +35,13 @@ public class ControllerCombat {
         playerAttacked = false;
         this.turn = 0;
         this.skillChoosed = -1;
+        this.updateBlock = true;
+        this.target = null;
+        for(int i = 0; i < enemy.size(); i++){
+        	enemy.get(i).applyStartName();
+        	System.out.println(enemy.get(i).getName());
+        }
+       
 	}
 	
 	public boolean update(long elapsedTime){
@@ -49,10 +56,11 @@ public class ControllerCombat {
 			}
 		}else{
 			if(turn == 0){
-				if(skillChoosed > -1){
-					useSkill(player, enemy.get(target), skillChoosed);
+				if(skillChoosed > -1 && target != null){
+					useSkill(player, target, skillChoosed);
 					turn++;
 					skillChoosed = -1;
+					target = null;
 				}
 			}else{
 				if(turn <= enemy.size()){
@@ -78,10 +86,19 @@ public class ControllerCombat {
         	playerAttacked = true;
         target.setName(target.getName() + " " + String.valueOf(damage) +" HP");
         }
+        updateBlock = true;
 	}
 	
-	public void chooseSkill(int idSkill, int target){
-		skillChoosed = idSkill;
+	//return true if this skill is self only and should be applied on the source.
+	public boolean chooseSkill(int idSkill){
+		this.skillChoosed = idSkill;
+		if(player.getSkills().get(idSkill) instanceof Defense){
+			return ((Defense) player.getSkills().get(idSkill)).isSelfOnly();
+		}
+		return false;
+	}
+	
+	public void chooseTarget(RPGCharacter target){
 		this.target = target;
 	}
 	
@@ -97,7 +114,7 @@ public class ControllerCombat {
 			rnd = Dice.roll(enemy.size() - 1);
 			skill.perform(src, enemy.get(rnd));
 		}
-		if(src instanceof Enemy){
+		if(src instanceof Enemy && skill instanceof Attack){
 			((Enemy) src).applyAttackName();
 		}
 		updateBlock = true;

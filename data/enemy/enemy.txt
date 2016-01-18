@@ -1,0 +1,11 @@
+1
+Flowey
+1 2 5 5 0
+10 10
+Flowey: \n  "Hello there !"
+Flowey: \n "Thanks for watering me folks !"
+Flowey: \n "Oh, did I hurt you \n with my thorns?"
+
+
+
+
