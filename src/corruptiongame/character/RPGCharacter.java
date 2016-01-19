@@ -36,7 +36,7 @@ public class RPGCharacter {
 		this.stats.put(Stats.EVIL, evil);
 		this.stats.put(Stats.WEIGHT, 0);
 		this.armor = new Armor("none", 0, 0, 0, 0, 0);
-		this.weapon = new Weapon("fist", 0, 0, 0, 0, 1);
+		this.weapon = new Weapon("fist", 0, 0, 0, 1, 0);
 		this.inventory = new ArrayList<>();
 		this.skills = new ArrayList<>();
 		this.skills.add(new Attack("Normal Attack", Stats.STRENGTH, 1));
