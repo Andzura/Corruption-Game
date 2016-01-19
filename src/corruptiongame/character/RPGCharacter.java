@@ -35,8 +35,8 @@ public class RPGCharacter {
 		this.stats.put(Stats.DEFENSE, defense);
 		this.stats.put(Stats.EVIL, evil);
 		this.stats.put(Stats.WEIGHT, 0);
-		this.armor = new Armor("none", 0, 0);
-		this.weapon = new Weapon("fist", 0, 1);
+		this.armor = new Armor("none", 0, 0, 0, 0, 0);
+		this.weapon = new Weapon("fist", 0, 0, 0, 0, 1);
 		this.inventory = new ArrayList<>();
 		this.skills = new ArrayList<>();
 		this.skills.add(new Attack("Normal Attack", Stats.STRENGTH, 1));
@@ -146,16 +146,8 @@ public class RPGCharacter {
 	 * @param armor the armor to equip
 	 */
 	public void equipArmor(Armor armor) {
-		int defense = this.stats.get(Stats.DEFENSE);
-		if(inventory.contains((Item) armor)){
-			if(this.armor != null){
-				defense -= this.armor.getDefense();
-				this.stats.put(Stats.DEFENSE, defense);
-			}
-			this.armor = armor;
-			defense += this.armor.getDefense();
-			this.stats.put(Stats.DEFENSE, defense);
-		}
+                if(inventory.contains((Item) armor))
+                        this.armor = armor;
 	}
 
 	/**
@@ -201,7 +193,7 @@ public class RPGCharacter {
 	
 	public boolean addItem(Item item){
 		int weight = this.stats.get(Stats.WEIGHT);
-		weight += item.getWeight();
+		weight += item.getStats(Stats.WEIGHT);
 		if(weight <= this.maxWeight){
 			inventory.add(item);
 			this.stats.put(Stats.WEIGHT, weight);
@@ -221,7 +213,7 @@ public class RPGCharacter {
 	
 	public void dropItem(Item item){
 		int weight = this.stats.get(Stats.WEIGHT);
-		weight -= item.getWeight();
+		weight -= item.getStats(Stats.WEIGHT);
 		if(inventory.remove(item))
 			this.stats.put(Stats.WEIGHT, weight);
 	}
