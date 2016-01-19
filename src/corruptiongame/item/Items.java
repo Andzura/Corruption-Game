@@ -25,7 +25,7 @@ public class Items {
 
                                                     // Loading armors
                         sc = null;
-                        is = Items.class.getResourceAsStream("/data/armor.txt");
+                        is = Items.class.getResourceAsStream("/item/armor.txt");
 
                         if(is != null){
                             sc =new Scanner(is);
@@ -59,7 +59,7 @@ public class Items {
 
                                                      // Loading consumables
                         sc = null;
-                        is = Items.class.getResourceAsStream("/data/consumable.txt");
+                        is = Items.class.getResourceAsStream("/item/consumable.txt");
 
                         if(is != null){
                             sc =new Scanner(is);
@@ -93,7 +93,7 @@ public class Items {
 
                                                     // Loading weapons
                         sc = null;
-                        is = Items.class.getResourceAsStream("/data/weapon.txt");
+                        is = Items.class.getResourceAsStream("/item/weapon.txt");
 
                         if(is != null){
                             sc =new Scanner(is);
