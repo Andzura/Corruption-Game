@@ -13,6 +13,7 @@ public class Event {
 		this.triggered = false;
 	}
 	public boolean checkTrigger(int x, int y){
+		System.out.println(xUL+" "+xDR+" "+yUL+" "+yDR);
 		if(!triggered){
 			if(x >= xUL && x <= xDR){
 				if(y >= yUL && y <= yDR){

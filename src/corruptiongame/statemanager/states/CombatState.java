@@ -41,6 +41,7 @@ public class CombatState extends State {
 
 	@Override
 	public void update(long elapsedTime) {
+		boolean end = false;
 		if(!controller.update(elapsedTime)){
 				if(state == "DEFAULT"){
 					if(keyboard.isRightTyped() && choice < options.length - 1)
@@ -83,13 +84,46 @@ public class CombatState extends State {
 					}
 				}		
 				else if(state == "ITEM"){
-				
+					if(keyboard.isUpTyped()){
+						if(choice == 0 && pageItem > 0)
+							choice = -1;
+						if(choice > 0)
+							choice--;
+						if(choice == -2)
+							choice =  inventoryPage.size()-1;
+						
+						
+					}
+					if(keyboard.isDownTyped()){
+						if(choice == inventoryPage.size()-1 && hasNextPage)
+							choice = -2;
+						if(choice < inventoryPage.size()-1 && choice >= 0)
+							choice++;
+						if(choice == -1)
+							choice = 0;
+					}
+					if(keyboard.isEnterTyped()){
+						if(choice == -1){
+							pageItem--;
+							choice = 0;
+							this.fetchInventoryPage();
+						}
+						if(choice == -2){
+							pageItem++;
+							choice = 0;
+							this.fetchInventoryPage();
+						}
+						else{
+							controller.chooseItem(choice+(pageItem* maxNbItem));
+						}
+					}
 				}
 				else if(state == "FLEE"){
 					
 				}
+				end = controller.checkEnd();
 			}
-		boolean end = controller.checkEnd();
+		
 		if(end){
 			manager.pop();
 		}
@@ -144,12 +178,13 @@ public class CombatState extends State {
 				writeStringOnScreen(">",this.enemy.get(choice).getCombatX() - 1, this.enemy.get(choice).getCombatY(),0x000000,0xffffff);
 			}
 		}else if(state == "ITEM"){
+			clearScreenRegion(0x0000000,0,2*(Game.NBTILEH/3)+1,Game.NBTILEW,Game.NBTILEH - 4);
 			int i = 0;
 			if(pageItem > 0){
 				if(choice == -1)
-					writeStringOnScreen(">BACK", 5 , 2*(Game.NBTILEH/3)+i , 0x000000, 0xffffff);
+					writeStringOnScreen(">BACK", 5 , 2*(Game.NBTILEH/3)+i+1 , 0x000000, 0xffffff);
 				else
-					writeStringOnScreen("BACK", 5 , 2*(Game.NBTILEH/3)+i , 0x000000, 0xffffff);
+					writeStringOnScreen("BACK", 5 , 2*(Game.NBTILEH/3)+i+1, 0x000000, 0xffffff);
 			}
 			for(i = 0; i < inventoryPage.size(); i++){
 				if(choice == i)

@@ -18,6 +18,7 @@ import corruptiongame.statemanager.states.CombatState;
 import corruptiongame.statemanager.states.MainMenuState;
 import corruptiongame.statemanager.states.MapState;
 import corruptiongame.statemanager.states.PauseState;
+import corruptiongame.worldmap.Events;
 
 public class Game extends JPanel implements Runnable{
 	
@@ -56,6 +57,7 @@ public class Game extends JPanel implements Runnable{
 		//loading
 		Enemies.loadEnemies();
 		Items.loadItems();
+		Events.loadEvents();
 		
 		//initialize StateManager
 		//and create the states

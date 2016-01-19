@@ -44,7 +44,6 @@ public class ControllerCombat extends Controller{
         this.itemChoosed = -1;
         for(int i = 0; i < enemy.size(); i++){
         	enemy.get(i).applyStartName();
-        	System.out.println(enemy.get(i).getName());
         }
        
 	}
@@ -109,6 +108,14 @@ public class ControllerCombat extends Controller{
 		}else if(item instanceof Weapon){
 			player.equipWeapon((Weapon)item);
 		}
+		for(int i = 0; i < enemy.size(); i++){
+			for(int j = 0; j < enemy.get(i).getInventory().size(); j++){
+				if(item.getName().equals(enemy.get(i).getInventory().get(j).getName())){
+					enemy.get(i).setStats(Stats.HEALTH, 0);
+					enemy.get(i).applyEndName();
+				}
+			}
+		}
 	}
 	
 	public void chooseItem(int id){
@@ -130,7 +137,7 @@ public class ControllerCombat extends Controller{
 	
 	public void useRandomSkill(RPGCharacter src){
 		int skillCount = src.getSkills().size();
-		int rnd = Dice.roll(skillCount - 1);
+		int rnd = Dice.roll(skillCount-1);
 		Skill skill = src.getSkills().get(rnd);
 		if(skill instanceof Attack){
 			skill.perform(src, player);
