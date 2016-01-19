@@ -1,0 +1,7 @@
+3
+Second wind
+0 25 1 0 0
+Turtle shell
+1 15 0 0 0
+Adrenaline
+0 15 0 1 0

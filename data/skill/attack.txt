@@ -1,0 +1,11 @@
+5
+Normal attack
+0 0 0 0 0
+Lariat
+0 25 0 0 0
+Double dropkick
+0 50 0 0 0
+Backbreacker
+0 75 0 0 0
+Power of punch
+0 100 0 0 0
