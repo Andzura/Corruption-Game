@@ -1,5 +1,7 @@
 package corruptiongame.character;
 
+import me.grea.antoine.utils.Dice;
+
 public class Attack implements Skill {
 	
         private String name;
@@ -24,7 +26,7 @@ public class Attack implements Skill {
 		int stat_src = src.getStats(Stats.STRENGTH) + src.getStats(Stats.EVIL)*this.cost/100;
 		int stat_target = target.getStats(Stats.DEFENSE)*1+(target.getLevel()-src.getLevel())/6;
                 int defense = target.getArmor().getStats(Stats.DEFENSE);
-		int damage = (attack + stat_src)*((int)(Math.random()*src.getStats(Stats.EVIL)/100)) - (stat_target + defense)*((int)(Math.random()*target.getStats(Stats.EVIL)/100));
+		int damage = (attack + stat_src) + src.getStats(Stats.EVIL)*Dice.roll(-100, 100)/100 - ((stat_target + defense) + target.getStats(Stats.EVIL)*Dice.roll(-100, 100)/100);
                 
                 target.looseHealth(damage);
                 src.modifyStats(Stats.EVIL, 0-cost);

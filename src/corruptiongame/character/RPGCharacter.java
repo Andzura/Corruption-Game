@@ -39,8 +39,8 @@ public class RPGCharacter {
 		this.weapon = new Weapon("fist", 0, 0, 0, 1, 0);
 		this.inventory = new ArrayList<>();
 		this.skills = new ArrayList<>();
-		//this.skills.add(new Attack("Normal Attack", Stats.STRENGTH, 1));
-		//this.skills.add(new Defense("Heal", Stats.HEALTH, 5, true));
+                Skills.loadItems();
+                for(int i = 0 ; i < Skills.size() ; i++) this.skills.add(Skills.getSkill(i));
 		this.xp = 0;
 	}
 	

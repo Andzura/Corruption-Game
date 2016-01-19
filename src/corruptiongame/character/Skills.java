@@ -108,4 +108,8 @@ public class Skills {
                 }
                 return listSkill;
         }
+        
+        public static int size(){
+            return Skills.skillList.size();
+        }
 }
