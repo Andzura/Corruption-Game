@@ -17,10 +17,10 @@ public class Consumable extends Item {
 	}
         
         public void use(RPGCharacter charac){
-                charac.setStats(Stats.DEFENSE, charac.getStats(Stats.DEFENSE)+this.getStats(Stats.DEFENSE));
-                charac.setStats(Stats.EVIL, charac.getStats(Stats.EVIL)+this.getStats(Stats.EVIL));
-                charac.setStats(Stats.HEALTH, charac.getStats(Stats.HEALTH)+this.getStats(Stats.HEALTH));
-                charac.setStats(Stats.STRENGTH, charac.getStats(Stats.STRENGTH)+this.getStats(Stats.STRENGTH));
+                charac.modifyStats(Stats.DEFENSE, this.getStats(Stats.DEFENSE));
+                charac.modifyStats(Stats.EVIL, this.getStats(Stats.EVIL));
+                charac.modifyStats(Stats.HEALTH, this.getStats(Stats.HEALTH));
+                charac.modifyStats(Stats.STRENGTH, this.getStats(Stats.STRENGTH));
         }
 	
 	public Consumable copy(){
