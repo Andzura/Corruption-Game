@@ -2,15 +2,13 @@ package corruptiongame.character;
 
 public class Defense implements Skill {
 	private String name;
-	private Stats buffType;
-	private int buffValue;
-	private boolean selfOnly;
+        private Stats boost;
+        private int cost;
 	
-	public Defense(String name, Stats buffType, int buffValue, boolean selfOnly) {
+	public Defense(String name, Stats boost, int cost) {
 		this.name = name;
-		this.buffType = buffType;
-		this.buffValue = buffValue;
-		this.selfOnly = selfOnly;
+		this.boost = boost;
+                this.cost = cost;
 	}
 
 	/**
@@ -20,29 +18,27 @@ public class Defense implements Skill {
 	 */
 	@Override
 	public void perform(RPGCharacter src, RPGCharacter target) {
-		int buff = buffValue*(1+src.getLevel()/5);
-		/*
-		 * calculate the value of the buff, and apply it to the  target.
-		 */
+		target.modifyStats(boost, cost);
+                target.modifyStats(Stats.EVIL, 0-cost);
 	}
 
+        @Override
 	public String getName() {
 		return name;
 	}
 
-	public int getBuffValue() {
-		return buffValue;
-	}
-
-	public void setBuffValue(int buffValue) {
-		this.buffValue = buffValue;
-	}
-
-	public Stats getBuffType() {
-		return buffType;
-	}
-	
-	public boolean isSelfOnly() {
-		return selfOnly;
-	}
+	public Stats getBoost(){
+                return this.boost;
+        }
+        
+        @Override
+        public int getCost(){
+                return this.cost;
+        }
+        
+        @Override
+        public Skill copy(){
+                Defense copy = new Defense(this.name, this.boost, this.cost);
+                return copy;
+        }
 }
