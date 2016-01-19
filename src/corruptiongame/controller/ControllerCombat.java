@@ -114,11 +114,12 @@ public class ControllerCombat extends Controller{
 	public void chooseItem(int id){
 		this.itemChoosed = id;
 	}
-	//return true if this skill is self only and should be applied on the source.
+	//if defense, apply it on the player and return true
 	public boolean chooseSkill(int idSkill){
 		this.skillChoosed = idSkill;
 		if(player.getSkills().get(idSkill) instanceof Defense){
-			return ((Defense) player.getSkills().get(idSkill)).isSelfOnly();
+			target = player;
+			return true;
 		}
 		return false;
 	}
@@ -131,13 +132,10 @@ public class ControllerCombat extends Controller{
 		int skillCount = src.getSkills().size();
 		int rnd = Dice.roll(skillCount - 1);
 		Skill skill = src.getSkills().get(rnd);
-		if(skill.getClass() == Attack.class){
+		if(skill instanceof Attack){
 			skill.perform(src, player);
 		}else{
-			if(((Defense) skill).isSelfOnly())
-				skill.perform(src, src);
-			rnd = Dice.roll(enemy.size() - 1);
-			skill.perform(src, enemy.get(rnd));
+			skill.perform(src, src);
 		}
 		if(src instanceof Enemy && skill instanceof Attack){
 			((Enemy) src).applyAttackName();

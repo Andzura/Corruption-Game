@@ -116,6 +116,7 @@ public class PauseState extends State {
 	public void render() {
 		this.clearScreenRegion(0x000000, 3, 3, Game.NBTILEW-3, Game.NBTILEH-3);
 		writeStringOnScreen(player.getName(), 5 , 5 , 0x000000, 0xffffff);
+		
 		//display Stats on screen
 		writeStringOnScreen("HP: "+ player.getStats(Stats.HEALTH) + "/" + player.getMaxHealth(), 6 , 6 , 0x000000, 0xffffff);
 		writeStringOnScreen("STRENGTH: "+ player.getStats(Stats.STRENGTH), 20, 5 , 0x000000, 0xffffff);
@@ -176,15 +177,21 @@ public class PauseState extends State {
 	
 	public void fetchInventoryPage(){
 		int idEndPage; 
-		if( player.getInventory().size() <= (pageItem+1)*maxNbItem){
-			idEndPage = player.getInventory().size();
-			hasNextPage = false;
-		}
-		else{
-			idEndPage = (pageItem+1)*maxNbItem;
-			hasNextPage = true;
-		}
+		if(player.getInventory().size() > (pageItem)*maxNbItem){
+			if( player.getInventory().size() <= (pageItem+1)*maxNbItem){
+				idEndPage = player.getInventory().size();
+				hasNextPage = false;
+			}
+			else{
+				idEndPage = (pageItem+1)*maxNbItem;
+				hasNextPage = true;
+			}
+		
 		inventoryPage = player.getInventory().subList(pageItem*maxNbItem, idEndPage);
+		}else{
+			pageItem--;
+			this.fetchInventoryPage();
+		}
 		
 	}
 	@Override

@@ -16,6 +16,7 @@ public class ControllerPause extends Controller{
 	public void use(Item item){
 		if(item instanceof Consumable){
 			((Consumable) item).use(player);
+			player.dropItem(item);
 		}else if(item instanceof Armor){
 			player.equipArmor((Armor)item);
 		}else if(item instanceof Weapon){

@@ -17,7 +17,7 @@ public class CombatState extends State {
 	private RPGCharacter player;
 	private List<Enemy> enemy = new ArrayList<>();
 	private int pageItem;
-	private final int maxNbItem = 10;
+	private final int maxNbItem = 3;
 	private boolean hasNextPage;
 	private List<Item> inventoryPage;
 	private int enemyCount;
@@ -36,6 +36,7 @@ public class CombatState extends State {
 		this.controller = new ControllerCombat(player,enemy);
 		this.clearScreen(0x000000);
 		this.state = "DEFAULT";
+		this.fetchInventoryPage();
 	}
 
 	@Override
@@ -60,7 +61,6 @@ public class CombatState extends State {
 						if(keyboard.isEnterTyped()){
 							skillChoosed = true;
 							if(this.controller.chooseSkill(choice)){
-								this.controller.chooseTarget(player);
 								skillChoosed = false;
 								state = "DEFAULT";
 							}
@@ -144,7 +144,25 @@ public class CombatState extends State {
 				writeStringOnScreen(">",this.enemy.get(choice).getCombatX() - 1, this.enemy.get(choice).getCombatY(),0x000000,0xffffff);
 			}
 		}else if(state == "ITEM"){
-			
+			int i = 0;
+			if(pageItem > 0){
+				if(choice == -1)
+					writeStringOnScreen(">BACK", 5 , 2*(Game.NBTILEH/3)+i , 0x000000, 0xffffff);
+				else
+					writeStringOnScreen("BACK", 5 , 2*(Game.NBTILEH/3)+i , 0x000000, 0xffffff);
+			}
+			for(i = 0; i < inventoryPage.size(); i++){
+				if(choice == i)
+					writeStringOnScreen(">" + inventoryPage.get(i).getName(), 5 , 2*(Game.NBTILEH/3)+i+2 , 0x000000, 0xffffff);
+				else
+					writeStringOnScreen(inventoryPage.get(i).getName(), 5 , 2*(Game.NBTILEH/3)+i+2, 0x000000, 0xffffff);
+			}
+			if(hasNextPage){
+				if(choice == -2)
+					writeStringOnScreen(">NEXT", 5 , 2*(Game.NBTILEH/3)+i+2 , 0x000000, 0xffffff);
+				else
+					writeStringOnScreen("NEXT", 5 , 2*(Game.NBTILEH/3)+i+2 , 0x000000, 0xffffff);
+			}
 		}else{
 			
 		}
