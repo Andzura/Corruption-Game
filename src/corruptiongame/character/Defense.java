@@ -18,7 +18,7 @@ public class Defense implements Skill {
 	 */
 	@Override
 	public void perform(RPGCharacter src, RPGCharacter target) {
-		target.modifyStats(boost, cost);
+		target.modifyStats(boost, cost/100);
                 target.modifyStats(Stats.EVIL, 0-cost);
 	}
 
