@@ -2,17 +2,15 @@ package corruptiongame.character;
 
 public class Attack implements Skill {
 	
-	private String name;
-	private Stats attackType;
-	private int statsMultiplier;
+        private String name;
+        private int cost;
 
 	
 	
 	
-	 public Attack(String name, Stats attackType, int statsMultiplier){
+	 public Attack(String name, int cost){
 		 this.name = name;
-		 this.attackType = attackType;
-		 this.statsMultiplier = statsMultiplier;
+		 this.cost = cost;
 	 }
 	/**
 	 * @param src the character source of the attack skill
@@ -23,32 +21,34 @@ public class Attack implements Skill {
 	@Override
 	public void perform(RPGCharacter src, RPGCharacter target) {
 		int attack = src.getWeapon().getStats(Stats.STRENGTH) + src.getArmor().getStats(Stats.STRENGTH);
-		int stat_src = src.getStats(attackType);
-		int stat_target = target.getStats(Stats.DEFENSE);
+		int stat_src = src.getStats(Stats.STRENGTH) + src.getStats(Stats.EVIL)*this.cost/100;
+		int stat_target = target.getStats(Stats.DEFENSE)*1+(target.getLevel()-src.getLevel())/6;
                 int defense = target.getArmor().getStats(Stats.DEFENSE);
-		int damage = attack + stat_src*this.statsMultiplier - (stat_target*(1+target.getLevel()/2) + defense);
+		int damage = (attack + stat_src)*((int)(Math.random()*src.getStats(Stats.EVIL)/100)) - (stat_target + defense)*((int)(Math.random()*target.getStats(Stats.EVIL)/100));
                 
                 target.looseHealth(damage);
+                src.modifyStats(Stats.EVIL, 0-cost);
 	}
 
 	/**
 	 * @return the name
 	 */
+        @Override
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * @return the attackType
+	 * @return the cost in EVIL to the attack
 	 */
-	public Stats getAttackType() {
-		return attackType;
+        @Override
+	public int getCost() {
+		return cost;
 	}
-
-	/**
-	 * @return the statsMultiplier
-	 */
-	public int getStatsMultiplier() {
-		return statsMultiplier;
-	}
+        
+        @Override
+        public Skill copy(){
+                Attack copy = new Attack(this.name, this.cost);
+                return copy;
+        }
 }
