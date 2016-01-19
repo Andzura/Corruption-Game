@@ -10,14 +10,17 @@ import corruptiongame.character.Enemy;
 import corruptiongame.character.RPGCharacter;
 import corruptiongame.character.Skill;
 import corruptiongame.character.Stats;
+import corruptiongame.item.Armor;
+import corruptiongame.item.Consumable;
+import corruptiongame.item.Item;
+import corruptiongame.item.Weapon;
 
 import java.util.Map;
 
 import me.grea.antoine.utils.Dice;
 import me.grea.antoine.utils.Log;
 
-public class ControllerCombat {
-	private RPGCharacter player;
+public class ControllerCombat extends Controller{
 	private List<Enemy> enemy;
     private Map<Stats, Integer> statsPlayerDefault;
     private boolean playerAttacked;
@@ -26,10 +29,11 @@ public class ControllerCombat {
     private int skillChoosed;
     private int turn;
     private RPGCharacter target;
+	private int itemChoosed;
     
 	
 	public ControllerCombat( RPGCharacter player,List<Enemy> enemy){
-		this.player = player;
+		super(player);
 		this.enemy = enemy;
         this.statsPlayerDefault = player.getAllStats();
         playerAttacked = false;
@@ -37,6 +41,7 @@ public class ControllerCombat {
         this.skillChoosed = -1;
         this.updateBlock = true;
         this.target = null;
+        this.itemChoosed = -1;
         for(int i = 0; i < enemy.size(); i++){
         	enemy.get(i).applyStartName();
         	System.out.println(enemy.get(i).getName());
@@ -60,6 +65,12 @@ public class ControllerCombat {
 					useSkill(player, target, skillChoosed);
 					turn++;
 					skillChoosed = -1;
+					target = null;
+				}
+				if(itemChoosed > -1){
+					useItem();
+					turn++;
+					itemChoosed = -1;
 					target = null;
 				}
 			}else{
@@ -89,6 +100,20 @@ public class ControllerCombat {
         updateBlock = true;
 	}
 	
+	public void useItem(){
+		Item item = player.getInventory().get(itemChoosed);
+		if(item instanceof Consumable){
+			((Consumable) item).use(player);
+		}else if(item instanceof Armor){
+			player.equipArmor((Armor)item);
+		}else if(item instanceof Weapon){
+			player.equipWeapon((Weapon)item);
+		}
+	}
+	
+	public void chooseItem(int id){
+		this.itemChoosed = id;
+	}
 	//return true if this skill is self only and should be applied on the source.
 	public boolean chooseSkill(int idSkill){
 		this.skillChoosed = idSkill;

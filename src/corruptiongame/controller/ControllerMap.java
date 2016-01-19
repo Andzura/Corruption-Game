@@ -5,12 +5,13 @@ import corruptiongame.graphics.Tile;
 import corruptiongame.worldmap.Event;
 import corruptiongame.worldmap.WorldMap;
 
-public class ControllerMap {
+public class ControllerMap extends Controller{
 	private RPGCharacter player;
 	private WorldMap map;
 	private Event lastTriggeredEvent;
 	
 	public ControllerMap(RPGCharacter player, WorldMap map){
+		super(player);
 		this.player = player;
 		this.map = map;
 		lastTriggeredEvent = null;

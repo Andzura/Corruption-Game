@@ -26,7 +26,7 @@ public class MapState extends State{
 		super(manager, keyboard);
 		player = null;
 	}
-	public MapState(StateManager manager, Keyboard keyboard, RPGCharacter player){
+	public MapState(StateManager manager, RPGCharacter player, Keyboard keyboard){
 		super(manager, keyboard);
 		this.player = player;
 	}
@@ -34,9 +34,9 @@ public class MapState extends State{
 	public void init() {
 		if(player == null){
 			player = new RPGCharacter("Char", 1, 20, 5, 5, 0);
-			player.setMapX(20);
-			player.setMapY(14);
 		}
+		player.setMapX(20);
+		player.setMapY(14);
 		world = new WorldMap("/map/map.txt");
 		controller = new ControllerMap(player, world);
 		EventCombat e = new EventCombat(22, 14, 22, 14);
@@ -60,6 +60,9 @@ public class MapState extends State{
 					((CombatState) s).addEnemy(Enemies.getEnemy(enemyId));
 					manager.push("COMBAT");
 				}
+			}
+			if(keyboard.isEscapeTyped()){
+				manager.push("PAUSE");
 			}
 			if(keyboard.isDownPressed() && delta > 166){
 				controller.movePlayerBy(0, 1);

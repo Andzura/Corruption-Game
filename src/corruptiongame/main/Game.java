@@ -12,10 +12,12 @@ import corruptiongame.character.Enemies;
 import corruptiongame.character.Enemy;
 import corruptiongame.character.RPGCharacter;
 import corruptiongame.graphics.TextGrid;
+import corruptiongame.item.Items;
 import corruptiongame.statemanager.StateManager;
 import corruptiongame.statemanager.states.CombatState;
 import corruptiongame.statemanager.states.MainMenuState;
 import corruptiongame.statemanager.states.MapState;
+import corruptiongame.statemanager.states.PauseState;
 
 public class Game extends JPanel implements Runnable{
 	
@@ -53,15 +55,34 @@ public class Game extends JPanel implements Runnable{
 		
 		//loading
 		Enemies.loadEnemies();
+		Items.loadItems();
 		
 		//initialize StateManager
 		//and create the states
 		manager = new StateManager();
-		manager.addState(new MainMenuState(this.manager,keyboard), "MAINMENU");
-		manager.addState(new MapState(manager,keyboard), "MAP");
-		manager.push("MAP");
 		RPGCharacter player = new RPGCharacter("Char", 1, 20, 5, 5, 0);
+		player.addItem(Items.getItem(0));
+		player.addItem(Items.getItem(1));
+		player.addItem(Items.getItem(2));
+		player.addItem(Items.getItem(3));
+		player.addItem(Items.getItem(4));
+		player.addItem(Items.getItem(5));
+		player.addItem(Items.getItem(6));
+		player.addItem(Items.getItem(7));
+		player.addItem(Items.getItem(8));
+		player.addItem(Items.getItem(9));
+		player.addItem(Items.getItem(10));
+		player.addItem(Items.getItem(11));
+		player.addItem(Items.getItem(12));
+		player.addItem(Items.getItem(13));
+		player.addItem(Items.getItem(14));
+		player.addItem(Items.getItem(15));
+		
+		manager.addState(new MainMenuState(this.manager,keyboard), "MAINMENU");
+		manager.addState(new MapState(manager, player ,keyboard),"MAP");
+		manager.push("MAP");
 		CombatState combat = new CombatState(manager, player, keyboard);
+		manager.addState(new PauseState(manager, player ,keyboard),"PAUSE");
 		manager.addState(combat, "COMBAT");
 		//initialize Screen
 		screen = new TextGrid(NBTILEW, NBTILEH, TILESIZE, TILESIZE);

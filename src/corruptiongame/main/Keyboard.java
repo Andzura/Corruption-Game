@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import me.grea.antoine.utils.Log;
 
 public class Keyboard extends KeyAdapter{
-	private boolean up, down, left, right, enter;
+	private boolean up, down, left, right, enter,escape;
 	private boolean[] keys = new boolean[190];
 	
 	//invoked when a Key is pressed
@@ -29,6 +29,7 @@ public class Keyboard extends KeyAdapter{
 		left = keys[KeyEvent.VK_LEFT] || keys[KeyEvent.VK_Q];
 		right = keys[KeyEvent.VK_RIGHT] || keys[KeyEvent.VK_D];
 		enter = keys[KeyEvent.VK_ENTER];
+		escape = keys[KeyEvent.VK_ESCAPE];
 		
 	}
 	
@@ -60,6 +61,11 @@ public class Keyboard extends KeyAdapter{
 	
 	public boolean isUpPressed() {
 		return up;
+	}
+	
+	
+	public boolean isEscapePressed() {
+		return escape;
 	}
 	
 	public boolean isEnterTyped() {
@@ -102,4 +108,11 @@ public class Keyboard extends KeyAdapter{
 		return false;
 	}
 	
+	public boolean isEscapeTyped() {
+		if(escape){
+			escape = false;
+			return true;
+		}
+		return false;
+	}
 }

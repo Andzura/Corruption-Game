@@ -7,6 +7,7 @@ import corruptiongame.character.Enemy;
 import corruptiongame.character.RPGCharacter;
 import corruptiongame.character.Stats;
 import corruptiongame.controller.ControllerCombat;
+import corruptiongame.item.Item;
 import corruptiongame.main.Game;
 import corruptiongame.main.Keyboard;
 import corruptiongame.statemanager.State;
@@ -15,12 +16,15 @@ import corruptiongame.statemanager.StateManager;
 public class CombatState extends State {
 	private RPGCharacter player;
 	private List<Enemy> enemy = new ArrayList<>();
+	private int pageItem;
+	private final int maxNbItem = 10;
+	private boolean hasNextPage;
+	private List<Item> inventoryPage;
 	private int enemyCount;
 	private static String[] options = {"ACTION", "ITEM", "FLEE"};
 	private String state;
 	private ControllerCombat controller;
 	private int choice;
-	private int idSkill;
 	private boolean skillChoosed;
 	
 	public CombatState(StateManager manager,RPGCharacter player, Keyboard keyboard){
@@ -54,11 +58,14 @@ public class CombatState extends State {
 						if(keyboard.isUpTyped() && choice > 0)
 							choice--;
 						if(keyboard.isEnterTyped()){
+							skillChoosed = true;
 							if(this.controller.chooseSkill(choice)){
 								this.controller.chooseTarget(player);
+								skillChoosed = false;
+								state = "DEFAULT";
 							}
 							choice = 0;
-							skillChoosed = true;
+							
 						}
 					}
 					else{
@@ -143,6 +150,20 @@ public class CombatState extends State {
 		}
 		
 		
+		
+	}
+	
+	public void fetchInventoryPage(){
+		int idEndPage; 
+		if( player.getInventory().size() <= (pageItem+1)*maxNbItem){
+			idEndPage = player.getInventory().size();
+			hasNextPage = false;
+		}
+		else{
+			idEndPage = (pageItem+1)*maxNbItem;
+			hasNextPage = true;
+		}
+		inventoryPage = player.getInventory().subList(pageItem*maxNbItem, idEndPage);
 		
 	}
 
