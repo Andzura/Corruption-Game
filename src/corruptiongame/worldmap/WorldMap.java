@@ -18,10 +18,9 @@ public class WorldMap {
 	private int sizeX;
 	private int sizeY;
 	private char[] map;
-	private List<Event> events;
+	
 	
 	public WorldMap(String path){
-		events = new ArrayList<>();
 		Scanner sc	= null;
 		InputStream is = getClass().getResourceAsStream(path);
 		if(is != null)
@@ -80,18 +79,10 @@ public class WorldMap {
 		return sizeY;
 	}
 	
-	public void addEvent(Event e){
-		events.add(e);
-	}
-
-	public void loadEvent(){
-		
-	}
-	
 	public Event checkEvent(int x, int y){
-		for(int i = 0; i < events.size(); i++){
-			if(events.get(i).checkTrigger(x, y)){
-				return events.get(i);
+		for(int i = 0; i < Events.size(); i++){
+			if(Events.get(i).checkTrigger(x, y)){
+				return Events.get(i);
 			}
 		}
 		return null;

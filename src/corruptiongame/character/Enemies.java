@@ -57,6 +57,7 @@ public class Enemies {
 				}
 				enemyList.add(enemy);
 			}
+			sc.close();
 			
 		}
 		else{
@@ -69,6 +70,9 @@ public class Enemies {
 		return enemyList.get(id).copy();
 	}
 	
+	public static int size(){
+		return enemyList.size();
+	}
 	public static List<Enemy> getEnemy(List<Integer> listId){
 		List<Enemy> listEnemy = new ArrayList<>();
 		for(int i = 0; i < listId.size(); i++){

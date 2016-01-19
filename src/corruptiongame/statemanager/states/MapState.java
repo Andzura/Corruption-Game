@@ -39,9 +39,6 @@ public class MapState extends State{
 		player.setMapY(14);
 		world = new WorldMap("/map/map.txt");
 		controller = new ControllerMap(player, world);
-		EventCombat e = new EventCombat(22, 14, 22, 14);
-		e.addEnemyId(0);
-		world.addEvent(e);
 		
 	}
 
