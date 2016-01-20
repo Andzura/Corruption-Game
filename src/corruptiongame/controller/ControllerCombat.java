@@ -73,7 +73,7 @@ public class ControllerCombat extends Controller{
 					target = null;
 				}
 			}else{
-				if(turn <= enemy.size()){
+				if(turn <= enemy.size() &&  enemy.get(turn-1).getStats(Stats.HEALTH) > 0){
 					useRandomSkill(enemy.get(turn - 1));
 					turn++;
 				}else{
@@ -171,10 +171,6 @@ public class ControllerCombat extends Controller{
 	}
 	
 	public void exit(){
-		if(playerAttacked){
-			player.modifyStats(Stats.EVIL, enemy.size());
-			player.gainXp(enemy.size() * 10);
-		}
 		if(enemy.get(0).getStats(Stats.HEALTH) <= 0){
 			for(int i = 0; i < enemy.size(); i++){
 				for(int j = 0; j < enemy.get(i).getInventory().size(); j++)
@@ -188,6 +184,10 @@ public class ControllerCombat extends Controller{
 			s = i.next();
 			if(s != Stats.HEALTH)
 				player.setStats(s, statsPlayerDefault.get(s));
+		}
+		if(playerAttacked){
+			player.modifyStats(Stats.EVIL, (enemy.size()*10));
+			player.gainXp(enemy.size() * 10);
 		}
 		
 	}
