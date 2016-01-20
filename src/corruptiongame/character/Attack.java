@@ -17,7 +17,6 @@ public class Attack implements Skill {
 	/**
 	 * @param src the character source of the attack skill
 	 * @param target the target of the attack skill
-	 * @return the damage dealt to target 
 	 * 
 	 */
 	@Override
@@ -29,7 +28,7 @@ public class Attack implements Skill {
 		int damage = (attack + stat_src) + src.getStats(Stats.EVIL)*Dice.roll(-100, 100)/100 - ((stat_target + defense) + target.getStats(Stats.EVIL)*Dice.roll(-100, 100)/100);
                 
                 target.looseHealth(damage);
-                src.modifyStats(Stats.EVIL, 0-cost);
+                src.modifyStats(Stats.EVIL, 0-cost/100*src.getStats(Stats.EVIL));
 	}
 
 	/**
