@@ -134,7 +134,7 @@ public class Game extends JPanel implements Runnable{
 			}
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				frame.setTitle("TEST" + " | " + frames + "fps");
+				frame.setTitle("Corruption Game" + " | " + frames + "fps");
 				frames = 0;
 			}
 		}

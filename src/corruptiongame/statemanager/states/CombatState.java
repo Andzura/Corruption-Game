@@ -131,15 +131,16 @@ public class CombatState extends State {
 							this.fetchInventoryPage();
 						}
 						else{
+							controller.chooseItem(choice+(page * maxNbItem));
 							page = 0;
 							choice = 0;
-							controller.chooseItem(choice+(page * maxNbItem));
 							state = "DEFAULT";
 							this.fetchInventoryPage();
 						}
 					}
 				}
 				else if(state == "FLEE"){
+					controller.flee();
 					end = true;
 				}
 				

@@ -1,16 +1,16 @@
 2
 Flowey
-1 150 5 5 0
+1 10 5 5 0
 10 10
-30 31
+30 31 33
 Flowey: \n  "Hello there !"
 Flowey: \n "Thanks for watering\n me folks !"
 Flowey: \n "Oh, did I hurt you \n with my thorns?"
 
 Guard
-1 150 5 5 0
+1 20 5 10 0
 10 10
-31 30
+31 30 4
 Guard: \n  "HEY! NO PASSING!"
 Guard: \n "Well, I guess you \n can pass then.."
 Guard: \n "YOU SHALL NOT PASS YOU \n HEAR ME !"

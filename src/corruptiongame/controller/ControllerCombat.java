@@ -111,7 +111,7 @@ public class ControllerCombat extends Controller{
 		}
 		for(int i = 0; i < enemy.size(); i++){
 			for(int j = 0; j < enemy.get(i).getInventory().size(); j++){
-				if(item.getName().equals(enemy.get(i).getInventory().get(j).getName())){
+				if(item.getName() == enemy.get(i).getInventory().get(j).getName()){
 					enemy.get(i).setStats(Stats.HEALTH, 0);
 					enemy.get(i).applyEndName();
 				}
@@ -165,6 +165,11 @@ public class ControllerCombat extends Controller{
 				
 		}
 	}
+	
+	public void flee(){
+		player.looseHealth((player.getStats(Stats.HEALTH)/2)+1);
+	}
+	
 	public void exit(){
 		if(playerAttacked){
 			player.modifyStats(Stats.EVIL, enemy.size());
