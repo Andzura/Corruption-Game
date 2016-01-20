@@ -67,6 +67,18 @@ public class RPGCharacter {
 		else 
 			return 0;
 	}
+        
+    /**
+     *
+     * @param s
+     * @return stat value plus armor and weapon modification
+     */
+    public int getFullStats(Stats s){
+        	if(stats.containsKey(s))
+			return stats.get(s)+this.armor.getStats(s)+this.weapon.getStats(s);
+		else 
+			return 0;
+        }
 	
 	public Map<Stats, Integer> getAllStats(){
 		Map<Stats,Integer> stats = new EnumMap<Stats,Integer>(Stats.class);
