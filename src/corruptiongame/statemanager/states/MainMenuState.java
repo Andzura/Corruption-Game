@@ -24,7 +24,6 @@ public class MainMenuState extends State{
 		switch(choice){
 			case 0:
 				manager.push("MAP");
-				manager.setPlayer(new RPGCharacter("Char", 1, 20, 5, 5, 0));
 				break;
 			case 1:
 				System.exit(0);

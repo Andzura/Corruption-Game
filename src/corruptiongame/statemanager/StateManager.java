@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import corruptiongame.character.RPGCharacter;
+import corruptiongame.item.Items;
 import corruptiongame.main.Keyboard;
+import corruptiongame.main.Start;
 
 public class StateManager {
 
@@ -17,8 +19,7 @@ public class StateManager {
 	    //create an empty StateManager
 	    //adding State and pushing one on Top of the stack 
 	    // is needed before any other action on this StateManager.
-	    public StateManager(){
-	    	
+	    public StateManager(){	    	
 	    }
 	    //create a StateManager with only the State state
 	    //push this State on top of the stack.

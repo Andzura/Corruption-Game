@@ -32,12 +32,8 @@ public class CombatState extends State {
 		this.player = manager.getPlayer();
 	}
 	
-	public CombatState(StateManager manager,RPGCharacter player, Keyboard keyboard){
-		super(manager, keyboard);
-		this.player = player;
-	}
-	
 	public void init(){
+		this.player = manager.getPlayer();
 		this.controller = new ControllerCombat(player,enemy);
 		this.clearScreen(0x000000);
 		this.state = "DEFAULT";
@@ -265,6 +261,7 @@ public class CombatState extends State {
 	@Override
 	public void exit(){
 		enemyCount = 0;
+		controller.exit();
 		enemy.clear();
 	}
 

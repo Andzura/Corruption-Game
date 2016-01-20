@@ -24,26 +24,21 @@ public class PauseState extends State {
 	
 	public PauseState(StateManager manager, Keyboard keyboard) {
 		super(manager, keyboard);
-		this.player = manager.getPlayer();
 		this.pageItem = 0;
 		this.choice = 0;
 		this.hasNextPage = false;
 		this.selected = false;
 		this.itemSelected = 1;
-		this.controller = new ControllerPause(player);
 		
-	}
-	
-	public PauseState(StateManager manager,RPGCharacter player, Keyboard keyboard) {
-		this(manager, keyboard);
-		this.player = player;		
 	}
 
 	@Override
 	public void init() {
 		// TODO Auto-generated method stub
+		this.player = manager.getPlayer();
 		this.clearScreenRegion(0xffffff, 2, 2, Game.NBTILEW-2, Game.NBTILEH-2);
 		this.fetchInventoryPage();
+		this.controller = new ControllerPause(player);
 	}
 
 

@@ -116,9 +116,13 @@ public class RPGCharacter {
 	
 	public void gainXp(int xp) {
 		this.xp += xp;
-		if(xp > (level*50)){
+		if(xp > (level*10)){
 			xp -= 50*level;
 			level++;
+			this.modifyStats(Stats.HEALTH, 5);
+			this.modifyStats(Stats.STRENGTH, level);
+			this.modifyStats(Stats.DEFENSE, level);
+			
 		}
 	}
 	

@@ -170,11 +170,11 @@ public class ControllerCombat extends Controller{
 			player.modifyStats(Stats.EVIL, enemy.size());
 			player.gainXp(enemy.size() * 10);
 		}
-		for(int i = 0; i < enemy.size(); i++){
-			int n = Dice.roll(enemy.get(i).getInventory().size());
-			if(n != 0){
-				player.addItem(enemy.get(i).getInventory().get(n-1));
-			}
+		if(enemy.get(0).getStats(Stats.HEALTH) <= 0){
+			for(int i = 0; i < enemy.size(); i++){
+				for(int j = 0; j < enemy.get(i).getInventory().size(); j++)
+					player.addItem(enemy.get(i).getInventory().get(j));
+				}
 		}
 		Set<Stats> k = statsPlayerDefault.keySet();
 		Iterator<Stats> i = k.iterator();

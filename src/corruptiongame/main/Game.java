@@ -59,14 +59,15 @@ public class Game extends JPanel implements Runnable{
 		Enemies.loadEnemies();
 		Events.loadEvents();
 		Skills.loadSkills();
+		Start.loadStartValue();
+		
 		//initialize StateManager
 		//and create the states
 		manager = new StateManager();
-		RPGCharacter player = new RPGCharacter("Char", 1, 20, 5, 5, 0);
 		manager.addState(new MainMenuState(this.manager,keyboard), "MAINMENU");
-		manager.addState(new MapState(manager, player ,keyboard),"MAP");
-		manager.addState(new PauseState(manager, player ,keyboard),"PAUSE");
-		manager.addState(new CombatState(manager, player, keyboard), "COMBAT");
+		manager.addState(new MapState(manager,keyboard),"MAP");
+		manager.addState(new PauseState(manager ,keyboard),"PAUSE");
+		manager.addState(new CombatState(manager, keyboard), "COMBAT");
 		manager.push("MAINMENU");
 		//initialize Screen
 		screen = new TextGrid(NBTILEW, NBTILEH, TILESIZE, TILESIZE);
@@ -119,19 +120,23 @@ public class Game extends JPanel implements Runnable{
 			long now = System.currentTimeMillis();
 			elapsedTime += (now - last);
 			last = now;
-			if(elapsedTime > 16){
+			if(elapsedTime > 32){
 				manager.update(elapsedTime);
-				elapsedTime -= 16;				
+				elapsedTime -= 32;				
 				this.render();
 				frames++;
-				
+			}else{
+				try {
+					Thread.sleep(32);
+				} catch (InterruptedException e) {
+					Log.w(e.getMessage());
+				}
 			}
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 				frame.setTitle("TEST" + " | " + frames + "fps");
 				frames = 0;
 			}
-			
 		}
 		this.stop();
 	}

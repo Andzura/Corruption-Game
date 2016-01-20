@@ -4,6 +4,7 @@ import java.util.List;
 
 import corruptiongame.main.Game;
 import corruptiongame.main.Keyboard;
+import corruptiongame.main.Start;
 import corruptiongame.statemanager.State;
 import corruptiongame.statemanager.StateManager;
 import corruptiongame.worldmap.Event;
@@ -36,9 +37,14 @@ public class MapState extends State{
 	}
 	
 	public void init() {
-		player.setMapX(20);
-		player.setMapY(14);
-		player.addItem(Items.getItem(30));
+		player = new RPGCharacter(Start.name,Start.level, Start.health, Start.strength, Start.defense, Start.evil);
+    	player.setMapX(Start.mapX);
+    	player.setMapY(Start.mapY);
+    	for(int i = 0; i < Start.inventory.size(); i++){
+    		player.addItem(Items.getItem(Start.inventory.get(i)));
+    		System.out.println(i);
+    	}
+    	manager.setPlayer(this.player);
 		world = new WorldMap("/map/map.txt");
 		controller = new ControllerMap(player, world);	
 		
