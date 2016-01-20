@@ -10,6 +10,11 @@ import corruptiongame.item.Items;
 import corruptiongame.main.Keyboard;
 import corruptiongame.main.Start;
 
+/* The statemanager concept was explained to me by Tomyi,
+ * So I want to thanks him to explained me how it works and
+ * how to implements it, and also for all others tiny things
+ * he could have help me with in this project, or for other ones. 
+*/
 public class StateManager {
 
 		private Map<String, State> states = new HashMap<String, State>();

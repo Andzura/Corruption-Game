@@ -73,8 +73,10 @@ public class ControllerCombat extends Controller{
 					target = null;
 				}
 			}else{
-				if(turn <= enemy.size() &&  enemy.get(turn-1).getStats(Stats.HEALTH) > 0){
-					useRandomSkill(enemy.get(turn - 1));
+				if(turn <= enemy.size()){
+					if(enemy.get(turn-1).getStats(Stats.HEALTH) > 0){
+						useRandomSkill(enemy.get(turn - 1));
+					}
 					turn++;
 				}else{
 					turn = 0;
