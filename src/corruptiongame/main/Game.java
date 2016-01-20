@@ -11,6 +11,7 @@ import me.grea.antoine.utils.Log;
 import corruptiongame.character.Enemies;
 import corruptiongame.character.Enemy;
 import corruptiongame.character.RPGCharacter;
+import corruptiongame.character.Skills;
 import corruptiongame.graphics.TextGrid;
 import corruptiongame.item.Items;
 import corruptiongame.statemanager.StateManager;
@@ -58,6 +59,7 @@ public class Game extends JPanel implements Runnable{
 		Enemies.loadEnemies();
 		Items.loadItems();
 		Events.loadEvents();
+		Skills.loadItems();
 		
 		//initialize StateManager
 		//and create the states

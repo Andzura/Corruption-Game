@@ -8,7 +8,7 @@ public class Defense implements Skill {
 	public Defense(String name, Stats boost, int cost) {
 		this.name = name;
 		this.boost = boost;
-                this.cost = cost;
+        this.cost = cost;
 	}
 
 	/**
@@ -19,15 +19,15 @@ public class Defense implements Skill {
 	@Override
 	public void perform(RPGCharacter src, RPGCharacter target) {
 		target.modifyStats(boost, cost/100);
-                target.modifyStats(Stats.EVIL, 0-cost);
+        target.modifyStats(Stats.EVIL, 0-cost);
 	}
 
         @Override
-	public String getName() {
-		return name;
-	}
+		public String getName() {
+			return name;
+		}
 
-	public Stats getBoost(){
+        public Stats getBoost(){
                 return this.boost;
         }
         

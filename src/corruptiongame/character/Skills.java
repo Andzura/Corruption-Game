@@ -8,7 +8,7 @@ import java.util.Scanner;
 import me.grea.antoine.utils.Log;
 
 public class Skills {
-    private static List<Skill> skillList;
+    private static List<Skill> skillList = new ArrayList<>();;
 
         public static void loadItems(){
                 int nbItems;
@@ -20,10 +20,7 @@ public class Skills {
                 int weight;
                 Scanner sc;
                 InputStream is;
-
-                skillList = new ArrayList<>();
-
-                                                    // Loading attacks
+                // Loading attacks
                         sc = null;
                         is = Skill.class.getResourceAsStream("/skill/attack.txt");
 

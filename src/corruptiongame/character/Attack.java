@@ -25,7 +25,7 @@ public class Attack implements Skill {
 		int attack = src.getWeapon().getStats(Stats.STRENGTH) + src.getArmor().getStats(Stats.STRENGTH);
 		int stat_src = src.getStats(Stats.STRENGTH) + src.getStats(Stats.EVIL)*this.cost/100;
 		int stat_target = target.getStats(Stats.DEFENSE)*1+(target.getLevel()-src.getLevel())/6;
-                int defense = target.getArmor().getStats(Stats.DEFENSE);
+        int defense = target.getArmor().getStats(Stats.DEFENSE);
 		int damage = (attack + stat_src) + src.getStats(Stats.EVIL)*Dice.roll(-100, 100)/100 - ((stat_target + defense) + target.getStats(Stats.EVIL)*Dice.roll(-100, 100)/100);
                 
                 target.looseHealth(damage);

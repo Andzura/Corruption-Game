@@ -16,7 +16,7 @@ import corruptiongame.statemanager.StateManager;
 public class CombatState extends State {
 	private RPGCharacter player;
 	private List<Enemy> enemy = new ArrayList<>();
-	private int pageItem;
+	private int page;
 	private final int maxNbItem = 3;
 	private boolean hasNextPage;
 	private List<Item> inventoryPage;
@@ -37,6 +37,7 @@ public class CombatState extends State {
 		this.clearScreen(0x000000);
 		this.state = "DEFAULT";
 		this.fetchInventoryPage();
+		this.page = 0;
 	}
 
 	@Override
@@ -60,12 +61,21 @@ public class CombatState extends State {
 						if(keyboard.isUpTyped() && choice > 0)
 							choice--;
 						if(keyboard.isEnterTyped()){
-							skillChoosed = true;
-							if(this.controller.chooseSkill(choice)){
-								skillChoosed = false;
-								state = "DEFAULT";
+							if(choice == 0 && page > 0){
+								page--;
+								choice = 0;
+							}else if(choice == 5 && (((page+1)*6) < player.getSkills().size() - 1)){
+								page++;
+								choice = 0;
+							}else{
+								skillChoosed = true;
+								if(this.controller.chooseSkill(choice+(page*6))){
+									page = 0;
+									skillChoosed = false;
+									state = "DEFAULT";
+								}
+								choice = 0;
 							}
-							choice = 0;
 							
 						}
 					}
@@ -77,7 +87,6 @@ public class CombatState extends State {
 						if(keyboard.isEnterTyped()){
 							state = "DEFAULT";
 							skillChoosed = false;
-							this.clearScreen(0x000000);
 							this.controller.chooseTarget(enemy.get(choice));
 							choice = 0;
 						}
@@ -85,7 +94,7 @@ public class CombatState extends State {
 				}		
 				else if(state == "ITEM"){
 					if(keyboard.isUpTyped()){
-						if(choice == 0 && pageItem > 0)
+						if(choice == 0 && page > 0)
 							choice = -1;
 						if(choice > 0)
 							choice--;
@@ -104,17 +113,17 @@ public class CombatState extends State {
 					}
 					if(keyboard.isEnterTyped()){
 						if(choice == -1){
-							pageItem--;
+							page--;
 							choice = 0;
 							this.fetchInventoryPage();
 						}
 						if(choice == -2){
-							pageItem++;
+							page++;
 							choice = 0;
 							this.fetchInventoryPage();
 						}
 						else{
-							controller.chooseItem(choice+(pageItem* maxNbItem));
+							controller.chooseItem(choice+(page * maxNbItem));
 						}
 					}
 				}
@@ -135,6 +144,7 @@ public class CombatState extends State {
 		
 		//clear the combat region
 		clearScreenRegion(0x0000000,0,0,Game.NBTILEW,2*(Game.NBTILEH/3));
+		clearScreenRegion(0x0000000,0,2*(Game.NBTILEH/3)+1,Game.NBTILEW,Game.NBTILEH - 4);
 		
 		//render Enemies on screen
 		for(int i = 0; i < enemyCount; i++){
@@ -166,21 +176,32 @@ public class CombatState extends State {
 		}else if(state == "ACTION"){
 			if(!skillChoosed){
 				int x,y;
-				for(int i = 0; i < player.getSkills().size();i++){
+				for(int i = 0; i < 6 && (i+(page*6)) < player.getSkills().size();i++){
 					x = i/3;
 					y = i%3;
+					if(i == 0 && page > 0){
+						if(choice == i)
+							writeStringOnScreen("BACK",(10 + (x*15)),2*(Game.NBTILEH/3) + 2 + y ,0xffffff,0x000000);
+						else
+							writeStringOnScreen("BACK",(10 + (x*15)),2*(Game.NBTILEH/3) + 2 + y ,0x000000,0xffffff);
+					}else if(i == 5 && (((page+1)*5) < player.getSkills().size() - 1)){
+						if(choice == i)
+							writeStringOnScreen("NEXT",(10 + (x*15)),2*(Game.NBTILEH/3) + 2 + y ,0xffffff,0x000000);
+						else
+							writeStringOnScreen("NEXT",(10 + (x*15)),2*(Game.NBTILEH/3) + 2 + y ,0x000000,0xffffff);
+					}else{
 					if(choice == i)
-						writeStringOnScreen(player.getSkills().get(i).getName(),(10 + (x*15)),2*(Game.NBTILEH/3) + 2 + (y*3) ,0xffffff,0x000000);
+						writeStringOnScreen(player.getSkills().get(i+page*5).getName(),(10 + (x*15)),2*(Game.NBTILEH/3) + 2 + y ,0xffffff,0x000000);
 					else
-						writeStringOnScreen(player.getSkills().get(i).getName(),(10 + (x*15)),2*(Game.NBTILEH/3) + 2 + (y*3) ,0x000000,0xffffff);
+						writeStringOnScreen(player.getSkills().get(i+page*5).getName(),(10 + (x*15)),2*(Game.NBTILEH/3) + 2 + y ,0x000000,0xffffff);
+					}
 				}
 			}else{
 				writeStringOnScreen(">",this.enemy.get(choice).getCombatX() - 1, this.enemy.get(choice).getCombatY(),0x000000,0xffffff);
 			}
 		}else if(state == "ITEM"){
-			clearScreenRegion(0x0000000,0,2*(Game.NBTILEH/3)+1,Game.NBTILEW,Game.NBTILEH - 4);
 			int i = 0;
-			if(pageItem > 0){
+			if(page > 0){
 				if(choice == -1)
 					writeStringOnScreen(">BACK", 5 , 2*(Game.NBTILEH/3)+i+1 , 0x000000, 0xffffff);
 				else
@@ -208,15 +229,15 @@ public class CombatState extends State {
 	
 	public void fetchInventoryPage(){
 		int idEndPage; 
-		if( player.getInventory().size() <= (pageItem+1)*maxNbItem){
+		if( player.getInventory().size() <= (page+1)*maxNbItem){
 			idEndPage = player.getInventory().size();
 			hasNextPage = false;
 		}
 		else{
-			idEndPage = (pageItem+1)*maxNbItem;
+			idEndPage = (page+1)*maxNbItem;
 			hasNextPage = true;
 		}
-		inventoryPage = player.getInventory().subList(pageItem*maxNbItem, idEndPage);
+		inventoryPage = player.getInventory().subList(page*maxNbItem, idEndPage);
 		
 	}
 
