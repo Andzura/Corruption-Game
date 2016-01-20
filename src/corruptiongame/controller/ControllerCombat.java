@@ -103,6 +103,7 @@ public class ControllerCombat extends Controller{
 		Item item = player.getInventory().get(itemChoosed);
 		if(item instanceof Consumable){
 			((Consumable) item).use(player);
+			player.dropItem(item);
 		}else if(item instanceof Armor){
 			player.equipArmor((Armor)item);
 		}else if(item instanceof Weapon){
@@ -116,6 +117,7 @@ public class ControllerCombat extends Controller{
 				}
 			}
 		}
+		updateBlock = true;
 	}
 	
 	public void chooseItem(int id){

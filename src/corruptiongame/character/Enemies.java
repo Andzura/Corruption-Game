@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import corruptiongame.item.Items;
 import me.grea.antoine.utils.Log;
 
 public class Enemies {
@@ -45,6 +46,13 @@ public class Enemies {
 				enemy.setCombatX(lsc.nextInt());
 				enemy.setCombatY(lsc.nextInt());
 				lsc.close();
+				
+				lsc = new Scanner(sc.next());
+				while(lsc.hasNextInt()){
+					enemy.addItem(Items.getItem(lsc.nextInt()));
+				}
+				lsc.close();
+				
 				name = sc.next();
 				name = name.replaceAll("\\\\n", System.getProperty("line.separator"));
 				enemy.setStartName(name);

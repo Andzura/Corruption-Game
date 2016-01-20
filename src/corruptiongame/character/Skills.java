@@ -10,7 +10,7 @@ import me.grea.antoine.utils.Log;
 public class Skills {
     private static List<Skill> skillList = new ArrayList<>();;
 
-        public static void loadItems(){
+        public static void loadSkills(){
                 int nbItems;
                 String name;
                 int defense;

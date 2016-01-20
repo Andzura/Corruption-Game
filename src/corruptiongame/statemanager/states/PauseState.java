@@ -22,9 +22,9 @@ public class PauseState extends State {
 	private int itemSelected;
 	private ControllerPause controller;
 	
-	public PauseState(StateManager manager,RPGCharacter player, Keyboard keyboard) {
+	public PauseState(StateManager manager, Keyboard keyboard) {
 		super(manager, keyboard);
-		this.player = player;
+		this.player = manager.getPlayer();
 		this.pageItem = 0;
 		this.choice = 0;
 		this.hasNextPage = false;
@@ -32,6 +32,11 @@ public class PauseState extends State {
 		this.itemSelected = 1;
 		this.controller = new ControllerPause(player);
 		
+	}
+	
+	public PauseState(StateManager manager,RPGCharacter player, Keyboard keyboard) {
+		this(manager, keyboard);
+		this.player = player;		
 	}
 
 	@Override
@@ -63,7 +68,7 @@ public class PauseState extends State {
 					itemSelected = -2;
 				if(itemSelected < inventoryPage.size() && itemSelected > 0)
 					itemSelected++;
-				if(itemSelected == -1)
+				if(itemSelected == -1 && inventoryPage.size() > 0)
 					itemSelected = 1;
 			}
 			if(keyboard.isEnterTyped()){
@@ -118,11 +123,11 @@ public class PauseState extends State {
 		writeStringOnScreen(player.getName(), 5 , 5 , 0x000000, 0xffffff);
 		
 		//display Stats on screen
-		writeStringOnScreen("HP: "+ player.getStats(Stats.HEALTH) + "/" + player.getMaxHealth(), 6 , 6 , 0x000000, 0xffffff);
-		writeStringOnScreen("STRENGTH: "+ player.getStats(Stats.STRENGTH), 20, 5 , 0x000000, 0xffffff);
-		writeStringOnScreen("DEFENSE: "+ player.getStats(Stats.DEFENSE), 20, 6 , 0x000000, 0xffffff);
-		writeStringOnScreen("WEIGHT: "+ player.getStats(Stats.WEIGHT)+ "/" + player.getMaxWeight(), 20, 7 , 0x000000, 0xffffff);
-		writeStringOnScreen("???: "+ player.getStats(Stats.EVIL), 20, 8 , 0x000000, 0xffffff);
+		writeStringOnScreen("HP: "+ player.getFullStats(Stats.HEALTH) + "/" + player.getMaxHealth(), 6 , 6 , 0x000000, 0xffffff);
+		writeStringOnScreen("STRENGTH: "+ player.getFullStats(Stats.STRENGTH), 20, 5 , 0x000000, 0xffffff);
+		writeStringOnScreen("DEFENSE: "+ player.getFullStats(Stats.DEFENSE), 20, 6 , 0x000000, 0xffffff);
+		writeStringOnScreen("WEIGHT: "+ player.getFullStats(Stats.WEIGHT)+ "/" + player.getMaxWeight(), 20, 7 , 0x000000, 0xffffff);
+		writeStringOnScreen("???: "+ player.getFullStats(Stats.EVIL), 20, 8 , 0x000000, 0xffffff);
 		
 		writeStringOnScreen("INVENTORY:", 5 , 9 , 0x000000, 0xffffff);
 		int i = 0;
@@ -176,21 +181,28 @@ public class PauseState extends State {
 
 	
 	public void fetchInventoryPage(){
-		int idEndPage; 
-		if(player.getInventory().size() > (pageItem)*maxNbItem){
-			if( player.getInventory().size() <= (pageItem+1)*maxNbItem){
-				idEndPage = player.getInventory().size();
-				hasNextPage = false;
-			}
-			else{
-				idEndPage = (pageItem+1)*maxNbItem;
-				hasNextPage = true;
-			}
-		
-		inventoryPage = player.getInventory().subList(pageItem*maxNbItem, idEndPage);
+		int idEndPage;
+		if(player.getInventory().isEmpty()){
+			inventoryPage = player.getInventory().subList(0, 0);
+			hasNextPage = false;
+			itemSelected = -1;
 		}else{
-			pageItem--;
-			this.fetchInventoryPage();
+			if(player.getInventory().size() > (pageItem)*maxNbItem){
+				if( player.getInventory().size() <= (pageItem+1)*maxNbItem){
+					idEndPage = player.getInventory().size();
+					hasNextPage = false;
+				}
+				else{
+					idEndPage = (pageItem+1)*maxNbItem;
+					hasNextPage = true;
+				}
+			
+			inventoryPage = player.getInventory().subList(pageItem*maxNbItem, idEndPage);
+			}else{
+				pageItem--;
+				this.fetchInventoryPage();
+			}
+			itemSelected = 1;
 		}
 		
 	}

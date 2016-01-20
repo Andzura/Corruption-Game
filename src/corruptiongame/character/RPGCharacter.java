@@ -146,6 +146,9 @@ public class RPGCharacter {
 		return new ArrayList<Item>(inventory);
 	}
 
+	public void clearInventory(){
+		inventory.clear();
+	}
 	/**
 	 * @return the armor
 	 */

@@ -8,11 +8,15 @@ import corruptiongame.statemanager.State;
 import corruptiongame.statemanager.StateManager;
 import corruptiongame.worldmap.Event;
 import corruptiongame.worldmap.EventCombat;
+import corruptiongame.worldmap.Events;
 import corruptiongame.worldmap.WorldMap;
 import corruptiongame.character.Enemies;
 import corruptiongame.character.RPGCharacter;
+import corruptiongame.character.Skills;
+import corruptiongame.character.Stats;
 import corruptiongame.controller.ControllerMap;
 import corruptiongame.graphics.Tile;
+import corruptiongame.item.Items;
 
 public class MapState extends State{
 	
@@ -24,7 +28,7 @@ public class MapState extends State{
 
 	public MapState(StateManager manager, Keyboard keyboard){
 		super(manager, keyboard);
-		player = null;
+		player = manager.getPlayer();
 	}
 	public MapState(StateManager manager, RPGCharacter player, Keyboard keyboard){
 		super(manager, keyboard);
@@ -32,13 +36,11 @@ public class MapState extends State{
 	}
 	
 	public void init() {
-		if(player == null){
-			player = new RPGCharacter("Char", 1, 20, 5, 5, 0);
-		}
 		player.setMapX(20);
 		player.setMapY(14);
+		player.addItem(Items.getItem(30));
 		world = new WorldMap("/map/map.txt");
-		controller = new ControllerMap(player, world);
+		controller = new ControllerMap(player, world);	
 		
 	}
 
@@ -49,6 +51,9 @@ public class MapState extends State{
 			//we move player, if necessary, only every 1/5 second	
 			
 			
+			if(player.getStats(Stats.HEALTH) <= 0){
+				manager.pop();
+			}
 			if(controller.checkEvent()){
 				Event e = controller.getLastTriggeredEvent();
 				if(e instanceof EventCombat){

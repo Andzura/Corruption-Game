@@ -54,40 +54,20 @@ public class Game extends JPanel implements Runnable{
 		//add Keyboard Listener
 		keyboard = new Keyboard();
 		this.addKeyListener(keyboard);
-		
 		//loading
-		Enemies.loadEnemies();
 		Items.loadItems();
+		Enemies.loadEnemies();
 		Events.loadEvents();
-		Skills.loadItems();
-		
+		Skills.loadSkills();
 		//initialize StateManager
 		//and create the states
 		manager = new StateManager();
 		RPGCharacter player = new RPGCharacter("Char", 1, 20, 5, 5, 0);
-		player.addItem(Items.getItem(0));
-		player.addItem(Items.getItem(1));
-		player.addItem(Items.getItem(2));
-		player.addItem(Items.getItem(3));
-		player.addItem(Items.getItem(4));
-		player.addItem(Items.getItem(5));
-		player.addItem(Items.getItem(6));
-		player.addItem(Items.getItem(7));
-		player.addItem(Items.getItem(8));
-		player.addItem(Items.getItem(9));
-		player.addItem(Items.getItem(10));
-		player.addItem(Items.getItem(11));
-		player.addItem(Items.getItem(12));
-		player.addItem(Items.getItem(13));
-		player.addItem(Items.getItem(14));
-		player.addItem(Items.getItem(15));
-		
 		manager.addState(new MainMenuState(this.manager,keyboard), "MAINMENU");
 		manager.addState(new MapState(manager, player ,keyboard),"MAP");
-		manager.push("MAP");
-		CombatState combat = new CombatState(manager, player, keyboard);
 		manager.addState(new PauseState(manager, player ,keyboard),"PAUSE");
-		manager.addState(combat, "COMBAT");
+		manager.addState(new CombatState(manager, player, keyboard), "COMBAT");
+		manager.push("MAINMENU");
 		//initialize Screen
 		screen = new TextGrid(NBTILEW, NBTILEH, TILESIZE, TILESIZE);
 		screen.setSize(W,H);

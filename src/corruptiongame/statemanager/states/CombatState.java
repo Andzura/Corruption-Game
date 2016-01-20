@@ -27,6 +27,11 @@ public class CombatState extends State {
 	private int choice;
 	private boolean skillChoosed;
 	
+	public CombatState(StateManager manager, Keyboard keyboard){
+		super(manager, keyboard);
+		this.player = manager.getPlayer();
+	}
+	
 	public CombatState(StateManager manager,RPGCharacter player, Keyboard keyboard){
 		super(manager, keyboard);
 		this.player = player;
@@ -44,6 +49,7 @@ public class CombatState extends State {
 	public void update(long elapsedTime) {
 		boolean end = false;
 		if(!controller.update(elapsedTime)){
+			end = controller.checkEnd();
 				if(state == "DEFAULT"){
 					if(keyboard.isRightTyped() && choice < options.length - 1)
 						choice++;
@@ -93,9 +99,14 @@ public class CombatState extends State {
 					}
 				}		
 				else if(state == "ITEM"){
+					if(inventoryPage.size()  == 0){
+						state = "DEFAULT";
+					}
 					if(keyboard.isUpTyped()){
-						if(choice == 0 && page > 0)
+						if(choice == 0 && page > 0){
 							choice = -1;
+							System.out.println(choice);
+						}
 						if(choice > 0)
 							choice--;
 						if(choice == -2)
@@ -113,26 +124,31 @@ public class CombatState extends State {
 					}
 					if(keyboard.isEnterTyped()){
 						if(choice == -1){
+							System.out.println(choice);
 							page--;
 							choice = 0;
 							this.fetchInventoryPage();
 						}
-						if(choice == -2){
+						else if(choice == -2){
 							page++;
 							choice = 0;
 							this.fetchInventoryPage();
 						}
 						else{
+							page = 0;
+							choice = 0;
 							controller.chooseItem(choice+(page * maxNbItem));
+							state = "DEFAULT";
+							this.fetchInventoryPage();
 						}
 					}
 				}
 				else if(state == "FLEE"){
-					
+					end = true;
 				}
-				end = controller.checkEnd();
+				
 			}
-		
+			
 		if(end){
 			manager.pop();
 		}
@@ -229,15 +245,20 @@ public class CombatState extends State {
 	
 	public void fetchInventoryPage(){
 		int idEndPage; 
-		if( player.getInventory().size() <= (page+1)*maxNbItem){
-			idEndPage = player.getInventory().size();
+		if(player.getInventory().isEmpty()){
+			inventoryPage = player.getInventory().subList(0, 0);
 			hasNextPage = false;
+		}else{
+			if( player.getInventory().size() <= (page+1)*maxNbItem){
+				idEndPage = player.getInventory().size();
+				hasNextPage = false;
+			}
+			else{
+				idEndPage = (page+1)*maxNbItem;
+				hasNextPage = true;
+			}
+			inventoryPage = player.getInventory().subList(page*maxNbItem, idEndPage);
 		}
-		else{
-			idEndPage = (page+1)*maxNbItem;
-			hasNextPage = true;
-		}
-		inventoryPage = player.getInventory().subList(page*maxNbItem, idEndPage);
 		
 	}
 

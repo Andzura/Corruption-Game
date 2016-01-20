@@ -19,7 +19,7 @@ public class Consumable extends Item {
         public void use(RPGCharacter charac){
                 charac.modifyStats(Stats.DEFENSE, this.getStats(Stats.DEFENSE));
                 charac.modifyStats(Stats.EVIL, this.getStats(Stats.EVIL));
-                charac.modifyStats(Stats.HEALTH, this.getStats(Stats.HEALTH));
+                charac.gainHealth(this.getStats(Stats.HEALTH));
                 charac.modifyStats(Stats.STRENGTH, this.getStats(Stats.STRENGTH));
         }
 	

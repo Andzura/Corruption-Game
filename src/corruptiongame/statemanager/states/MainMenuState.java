@@ -1,6 +1,7 @@
 package corruptiongame.statemanager.states;
 
 
+import corruptiongame.character.RPGCharacter;
 import corruptiongame.main.Game;
 import corruptiongame.main.Keyboard;
 import corruptiongame.statemanager.State;
@@ -23,6 +24,7 @@ public class MainMenuState extends State{
 		switch(choice){
 			case 0:
 				manager.push("MAP");
+				manager.setPlayer(new RPGCharacter("Char", 1, 20, 5, 5, 0));
 				break;
 			case 1:
 				System.exit(0);

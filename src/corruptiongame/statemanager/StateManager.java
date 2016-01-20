@@ -5,12 +5,14 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
+import corruptiongame.character.RPGCharacter;
 import corruptiongame.main.Keyboard;
 
 public class StateManager {
 
 		private Map<String, State> states = new HashMap<String, State>();
 	    private Deque<State> stack = new ArrayDeque<State>();
+	    private RPGCharacter player;
 
 	    //create an empty StateManager
 	    //adding State and pushing one on Top of the stack 
@@ -71,6 +73,14 @@ public class StateManager {
 		
 		public State getState(String nameState) {
 			return states.get(nameState);
+		}
+		
+		public RPGCharacter getPlayer(){
+			return player;
+		}
+		
+		public void setPlayer(RPGCharacter player){
+			this.player = player;
 		}
 	
 }

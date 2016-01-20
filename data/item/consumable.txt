@@ -1,4 +1,4 @@
-12
+13
 Potion of health
 0 0 10 0 0
 Solution of health
@@ -23,3 +23,5 @@ Philter of the defender
 15 0 0 0 0
 Elixir of the defender
 20 0 0 0 0
+Water
+0 0 2 0 0
