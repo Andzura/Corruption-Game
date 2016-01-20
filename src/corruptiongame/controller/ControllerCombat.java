@@ -170,6 +170,7 @@ public class ControllerCombat extends Controller{
 	
 	public void flee(){
 		player.looseHealth((player.getStats(Stats.HEALTH)/2)+1);
+                playerAttacked = false;
 	}
 	
 	public void exit(){

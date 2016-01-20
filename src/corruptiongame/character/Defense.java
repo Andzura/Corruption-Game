@@ -18,9 +18,9 @@ public class Defense implements Skill {
 	 */
 	@Override
 	public void perform(RPGCharacter src, RPGCharacter target) {
-                if(boost == Stats.HEALTH) target.gainHealth(cost/100);
-                else target.modifyStats(boost, cost/100);
-                src.modifyStats(Stats.EVIL, 0-cost/100*src.getStats(Stats.EVIL));
+                if(boost == Stats.HEALTH) target.gainHealth(src.getStats(Stats.EVIL)*cost/100);
+                else target.modifyStats(boost, src.getStats(Stats.EVIL)*cost/100);
+                src.modifyStats(Stats.EVIL, 0-src.getStats(Stats.EVIL)*cost/100);
 	}
 
         @Override

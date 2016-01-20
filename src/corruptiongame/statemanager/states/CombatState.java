@@ -71,7 +71,7 @@ public class CombatState extends State {
 								choice = 0;
 							}else{
 								skillChoosed = true;
-								if(this.controller.chooseSkill(choice+(page*6))){
+								if(this.controller.chooseSkill(choice+(page*5))){
 									page = 0;
 									skillChoosed = false;
 									state = "DEFAULT";

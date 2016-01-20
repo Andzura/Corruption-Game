@@ -21,14 +21,13 @@ public class Attack implements Skill {
 	 */
 	@Override
 	public void perform(RPGCharacter src, RPGCharacter target) {
-		int attack = src.getWeapon().getStats(Stats.STRENGTH) + src.getArmor().getStats(Stats.STRENGTH);
-		int stat_src = src.getStats(Stats.STRENGTH) + src.getStats(Stats.STRENGTH)*src.getStats(Stats.EVIL)*this.cost/100;
-		int stat_target = target.getStats(Stats.DEFENSE);
-                int defense = target.getArmor().getStats(Stats.DEFENSE);
-		int damage = (attack + stat_src) - ((stat_target + defense));
+                int evilLost = 0-src.getStats(Stats.EVIL)*cost/100;
+		int attack = src.getFullStats(Stats.STRENGTH) + src.getFullStats(Stats.EVIL)*this.cost/100;
+		int defense = target.getFullStats(Stats.DEFENSE);
+		int damage = attack - defense;
                 
                 target.looseHealth(Math.max(1,damage));
-                src.modifyStats(Stats.EVIL, 0-cost/100*src.getStats(Stats.EVIL));
+                src.modifyStats(Stats.EVIL, evilLost);
 	}
 
 	/**
