@@ -58,7 +58,7 @@ public class CombatState extends State {
 				}
 				else if(state == "ACTION"){
 					if(!skillChoosed){
-						if(keyboard.isDownTyped() && choice < player.getSkills().size() - 1)
+						if(keyboard.isDownTyped() && choice < 5 && (page*5 + choice) < player.getSkills().size() - 1)
 							choice++;
 						if(keyboard.isUpTyped() && choice > 0)
 							choice--;
@@ -66,7 +66,7 @@ public class CombatState extends State {
 							if(choice == 0 && page > 0){
 								page--;
 								choice = 0;
-							}else if(choice == 5 && (((page+1)*6) < player.getSkills().size() - 1)){
+							}else if(choice == 5 && (((page+1)*5) < player.getSkills().size() - 1)){
 								page++;
 								choice = 0;
 							}else{
@@ -82,8 +82,15 @@ public class CombatState extends State {
 						}
 					}
 					else{
-						if(keyboard.isRightTyped() && choice < enemyCount - 1)
-							choice++;
+						if(keyboard.isRightTyped() && choice < enemyCount - 1){
+							int i = 1;
+							while(enemy.get(i+choice).getStats(Stats.HEALTH) <= 0 && i > 0){
+								i++;
+								if(choice + i > enemyCount - 1)
+									i = 0;
+							}
+							choice += i;
+						}
 						if(keyboard.isLeftTyped() && choice > 0)
 							choice--;
 						if(keyboard.isEnterTyped()){
@@ -189,7 +196,7 @@ public class CombatState extends State {
 		}else if(state == "ACTION"){
 			if(!skillChoosed){
 				int x,y;
-				for(int i = 0; i < 6 && (i+(page*6)) < player.getSkills().size();i++){
+				for(int i = 0; i < 6 && (i+(page*5)) < player.getSkills().size();i++){
 					x = i/3;
 					y = i%3;
 					if(i == 0 && page > 0){

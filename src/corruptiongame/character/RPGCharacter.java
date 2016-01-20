@@ -119,7 +119,8 @@ public class RPGCharacter {
 		if(xp > (level*10)){
 			xp -= 50*level;
 			level++;
-			this.modifyStats(Stats.HEALTH, 5);
+			this.maxHealth += 5;
+			this.setStats(Stats.HEALTH, this.maxHealth);
 			this.modifyStats(Stats.STRENGTH, level);
 			this.modifyStats(Stats.DEFENSE, level);
 			
