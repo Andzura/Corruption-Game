@@ -169,7 +169,10 @@ public class CombatState extends State {
 		//render Enemies on screen
 		for(int i = 0; i < enemyCount; i++){
 			enemy = this.enemy.get(i);
-			writeStringOnScreen(enemy.getName(), enemy.getCombatX(), enemy.getCombatY(), 0x000000, 0xffffff);
+			if(enemy.getStats(Stats.HEALTH) <= 0)
+				writeStringOnScreen(enemy.getName(), enemy.getCombatX(), enemy.getCombatY(), 0x000000, 0x555555);
+			else
+				writeStringOnScreen(enemy.getName(), enemy.getCombatX(), enemy.getCombatY(), 0x000000, 0xffffff);
 		}
 		
 		//render a white bar to separate menu
