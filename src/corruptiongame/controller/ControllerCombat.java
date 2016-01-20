@@ -173,23 +173,25 @@ public class ControllerCombat extends Controller{
 	}
 	
 	public void exit(){
-		if(enemy.get(0).getStats(Stats.HEALTH) <= 0){
-			for(int i = 0; i < enemy.size(); i++){
-				for(int j = 0; j < enemy.get(i).getInventory().size(); j++)
-					player.addItem(enemy.get(i).getInventory().get(j));
-				}
-		}
-		Set<Stats> k = statsPlayerDefault.keySet();
-		Iterator<Stats> i = k.iterator();
-		Stats s;
-		while(i.hasNext()){
-			s = i.next();
-			if(s != Stats.HEALTH && s != Stats.EVIL)
-				player.setStats(s, statsPlayerDefault.get(s));
-		}
-		if(playerAttacked){
-			player.modifyStats(Stats.EVIL, (enemy.size()*10));
-			player.gainXp(enemy.size() * 10);
+		if(player.getStats(Stats.HEALTH) > 0){
+			if(enemy.get(0).getStats(Stats.HEALTH) <= 0){
+				for(int i = 0; i < enemy.size(); i++){
+					for(int j = 0; j < enemy.get(i).getInventory().size(); j++)
+						player.addItem(enemy.get(i).getInventory().get(j));
+					}
+			}
+			Set<Stats> k = statsPlayerDefault.keySet();
+			Iterator<Stats> i = k.iterator();
+			Stats s;
+			while(i.hasNext()){
+				s = i.next();
+				if(s != Stats.HEALTH && s != Stats.EVIL)
+					player.setStats(s, statsPlayerDefault.get(s));
+			}
+			if(playerAttacked){
+				player.modifyStats(Stats.EVIL, (enemy.size()*10));
+				player.gainXp(enemy.size() * 10);
+			}
 		}
 		
 	}

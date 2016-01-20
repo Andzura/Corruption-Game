@@ -58,6 +58,7 @@ public class MapState extends State{
 			
 			
 			if(player.getStats(Stats.HEALTH) <= 0){
+				System.out.println(player.getStats(Stats.HEALTH));
 				manager.pop();
 			}
 			if(controller.checkEvent()){
@@ -129,7 +130,7 @@ public class MapState extends State{
 	}
 	@Override
 	public void exit() {
-		// TODO Auto-generated method stub
+		Events.untriggerAll();
 		
 	}
 

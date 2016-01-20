@@ -23,4 +23,7 @@ public class Event {
 		}
 		return false;
 	}
+	public void setTriggered(boolean b) {
+		this.triggered = false;		
+	}
 }

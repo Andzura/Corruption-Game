@@ -52,4 +52,11 @@ public class Events {
 			Log.f("Events file corrupted !");
 			
 	}
+
+	public static void untriggerAll() {
+		for(int i = 0; i < events.size(); i++){
+			events.get(i).setTriggered(false);
+		}
+		
+	}
 }
