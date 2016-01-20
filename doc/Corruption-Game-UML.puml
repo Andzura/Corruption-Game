@@ -1,0 +1,69 @@
+@startuml
+package "Character"{
+    class Character.Attack
+    class Character.Defense
+    class Character.Enemy
+    class Character.RPGCharacter
+    interface Character.Skill
+    enum Character.Stats
+
+    Character.Skill <|-- Character.Defense
+    Character.Skill <|-- Character.Attack
+    Character.RPGCharacter <|-- Character.Enemy
+    Character.RPGCharacter o--> Character.Skill
+    Character.RPGCharacter ..> Character.Stats
+}
+
+package "Controller"{
+    class Controller.Controller
+    class Controller.Combat
+    class Controller.Map
+    class Controller.Pause
+
+    Controller.Controller <|-- Controller.Combat
+    Controller.Controller <|-- Controller.Map
+    Controller.Controller <|-- Controller.Pause
+}
+
+package "Item"{
+    class Item.Armor
+    class Item.Consumable
+    class Item.Item
+    class Item.Weapon
+
+    Item.Item <|-- Item.Armor
+    Item.Item <|-- Item.Consumable
+    Item.Item <|-- Item.Weapon
+}
+
+package "Statemanager"{
+    abstract class Statemanager.State
+    class Statemanager.StateManager
+
+    package "States"{
+        class States.CombatState
+        class States.MainMenuState
+        class States.MapState
+        class States.PauseState
+    }
+
+    Statemanager.StateManager o-- Statemanager.State
+    Statemanager.State <|-- States
+}
+
+package "Worldmap"{}
+
+package "Graphics"{}
+
+package "Main" #DDDDDD{}
+
+Statemanager <--* Main
+Statemanager o--> Character
+States --> Controller
+States --> Graphics
+Controller --> Worldmap
+Controller o--> Character
+Character o--> Item
+
+
+@enduml
