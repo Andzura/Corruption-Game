@@ -184,7 +184,7 @@ public class ControllerCombat extends Controller{
 		Stats s;
 		while(i.hasNext()){
 			s = i.next();
-			if(s != Stats.HEALTH)
+			if(s != Stats.HEALTH && s != Stats.EVIL)
 				player.setStats(s, statsPlayerDefault.get(s));
 		}
 		if(playerAttacked){
