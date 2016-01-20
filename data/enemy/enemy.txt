@@ -1,14 +1,14 @@
 2
 Flowey
-1 10 5 5 0
-10 10
+1 5 5 4 0
+10 5
 30 31 33
 Flowey: \n  "Hello there !"
 Flowey: \n "Thanks for watering\n me folks !"
 Flowey: \n "Oh, did I hurt you \n with my thorns?"
 
 Guard
-1 20 5 10 0
+1 14 5 6 0
 10 10
 31 30 4
 Guard: \n  "HEY! NO PASSING!"
